@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://brceokpigpkt"]
+
+[ext_resource type="Script" path="res://scripts/corridors.gd" id="1_wvvxg"]
+[ext_resource type="Environment" uid="uid://1v64rcf2lewr" path="res://Scenes/Maps/MapAssets/WorldEnvironments/DarkRoomEnvironment.tres" id="2_k7fta"]
+
+[node name="Corridors" type="Node3D"]
+script = ExtResource("1_wvvxg")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("2_k7fta")

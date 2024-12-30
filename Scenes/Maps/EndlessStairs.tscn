@@ -1,0 +1,225 @@
+[gd_scene load_steps=11 format=3 uid="uid://bf28wqm6327n5"]
+
+[ext_resource type="PackedScene" uid="uid://bf2b7miq6udkr" path="res://Scenes/Maps/MapAssets/stairs.tscn" id="1_7f4id"]
+[ext_resource type="Script" path="res://scripts/endless_stairs.gd" id="1_v7vwm"]
+[ext_resource type="PackedScene" uid="uid://c2cslqo802p7i" path="res://Scenes/Maps/MapAssets/static_collision_object.tscn" id="2_uc2ec"]
+[ext_resource type="ArrayMesh" uid="uid://bafulfobid11q" path="res://Models/Stairs.obj" id="4_ovbal"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_l270w"]
+size = Vector3(0.2, 20, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ivvcq"]
+size = Vector3(0.2, 10, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_731jy"]
+size = Vector3(2, 5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i8db0"]
+size = Vector3(2, 10, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_dugf5"]
+size = Vector2(10, 100)
+
+[sub_resource type="Environment" id="Environment_657c7"]
+background_mode = 1
+
+[node name="EndlessStairs" type="Node3D"]
+script = ExtResource("1_v7vwm")
+
+[node name="stairs" parent="." instance=ExtResource("1_7f4id")]
+
+[node name="stairs2" parent="." instance=ExtResource("1_7f4id")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.03, -3.813)
+
+[node name="stairs3" parent="." instance=ExtResource("1_7f4id")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.03, 1.27)
+
+[node name="stairs4" parent="." instance=ExtResource("1_7f4id")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.06, 3.81)
+
+[node name="static_collision_object" parent="." instance=ExtResource("2_uc2ec")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+mesh = SubResource("BoxMesh_l270w")
+collision_shape = SubResource("BoxShape3D_ivvcq")
+
+[node name="static_collision_object2" parent="." instance=ExtResource("2_uc2ec")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+mesh = SubResource("BoxMesh_l270w")
+collision_shape = SubResource("BoxShape3D_ivvcq")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.28209, -5)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_731jy")
+
+[node name="Area3D2" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 5)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.1372, 0)
+shape = SubResource("BoxShape3D_i8db0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.06, -6.359)
+mesh = ExtResource("4_ovbal")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.09, -8.905)
+mesh = ExtResource("4_ovbal")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.12, -11.451)
+visible = false
+mesh = ExtResource("4_ovbal")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.15, -13.997)
+visible = false
+mesh = ExtResource("4_ovbal")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.18, -16.543)
+visible = false
+mesh = ExtResource("4_ovbal")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.207, -19.0879)
+visible = false
+mesh = ExtResource("4_ovbal")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16.237, -21.6339)
+visible = false
+mesh = ExtResource("4_ovbal")
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 18.267, -24.1799)
+visible = false
+mesh = ExtResource("4_ovbal")
+
+[node name="MeshInstance3D9" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20.297, -26.7259)
+visible = false
+mesh = ExtResource("4_ovbal")
+
+[node name="MeshInstance3D10" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 22.327, -29.2719)
+visible = false
+mesh = ExtResource("4_ovbal")
+
+[node name="MeshInstance3D11" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 24.3868, -31.8141)
+visible = false
+mesh = ExtResource("4_ovbal")
+
+[node name="MeshInstance3D12" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 26.4168, -34.3601)
+visible = false
+mesh = ExtResource("4_ovbal")
+
+[node name="MeshInstance3D13" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 28.4468, -36.9061)
+visible = false
+mesh = ExtResource("4_ovbal")
+
+[node name="MeshInstance3D14" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30.4768, -39.4521)
+visible = false
+mesh = ExtResource("4_ovbal")
+
+[node name="MeshInstance3D15" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 32.5068, -41.9981)
+visible = false
+mesh = ExtResource("4_ovbal")
+
+[node name="MeshInstance3D17" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -34.556, 42.0206)
+visible = false
+mesh = ExtResource("4_ovbal")
+
+[node name="MeshInstance3D18" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -32.526, 39.4746)
+visible = false
+mesh = ExtResource("4_ovbal")
+
+[node name="MeshInstance3D19" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -30.496, 36.9286)
+visible = false
+mesh = ExtResource("4_ovbal")
+
+[node name="MeshInstance3D20" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -28.466, 34.3826)
+visible = false
+mesh = ExtResource("4_ovbal")
+
+[node name="MeshInstance3D21" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -26.436, 31.8366)
+visible = false
+mesh = ExtResource("4_ovbal")
+
+[node name="MeshInstance3D22" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -24.4091, 29.2917)
+visible = false
+mesh = ExtResource("4_ovbal")
+
+[node name="MeshInstance3D23" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -22.3791, 26.7457)
+visible = false
+mesh = ExtResource("4_ovbal")
+
+[node name="MeshInstance3D24" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -20.3491, 24.1997)
+visible = false
+mesh = ExtResource("4_ovbal")
+
+[node name="MeshInstance3D25" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -18.3191, 21.6537)
+visible = false
+mesh = ExtResource("4_ovbal")
+
+[node name="MeshInstance3D26" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -16.2891, 19.1077)
+visible = false
+mesh = ExtResource("4_ovbal")
+
+[node name="MeshInstance3D27" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -14.2292, 16.5655)
+visible = false
+mesh = ExtResource("4_ovbal")
+
+[node name="MeshInstance3D28" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -12.1992, 14.0195)
+visible = false
+mesh = ExtResource("4_ovbal")
+
+[node name="MeshInstance3D29" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10.1692, 11.4735)
+visible = false
+mesh = ExtResource("4_ovbal")
+
+[node name="MeshInstance3D30" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8.1392, 8.92751)
+visible = false
+mesh = ExtResource("4_ovbal")
+
+[node name="MeshInstance3D31" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.1092, 6.38151)
+mesh = ExtResource("4_ovbal")
+
+[node name="MeshInstance3D33" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.622515, -0.782608, 0, 0.782608, -0.622515, 0, 0.284881, 8.19817)
+mesh = SubResource("QuadMesh_dugf5")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_657c7")
+
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_entered" from="Area3D2" to="." method="_on_area_3d_body_entered"]

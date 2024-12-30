@@ -1,0 +1,21 @@
+[gd_resource type="StandardMaterial3D" load_steps=6 format=3 uid="uid://c5jubyg0gw0c0"]
+
+[ext_resource type="Texture2D" uid="uid://b2rs7mingawl1" path="res://Textures/Ceilings/plaster_grey_04_diff_2k.jpg" id="1_qyg0h"]
+[ext_resource type="Texture2D" uid="uid://c06fivgwsqrmf" path="res://Textures/Ceilings/plaster_grey_04_ao_2k.jpg" id="2_kgjot"]
+[ext_resource type="Texture2D" uid="uid://cs26o56gyr6ap" path="res://Textures/Ceilings/plaster_grey_04_arm_2k.jpg" id="3_867b2"]
+[ext_resource type="Texture2D" uid="uid://bd4fps7v86tn1" path="res://Textures/Ceilings/plaster_grey_04_nor_gl_2k.jpg" id="4_7mmor"]
+[ext_resource type="Texture2D" uid="uid://cn1rxtedqfynn" path="res://Textures/Ceilings/plaster_grey_04_rough_2k.jpg" id="5_hftd0"]
+
+[resource]
+albedo_color = Color(0.716859, 0.891122, 0.980473, 1)
+albedo_texture = ExtResource("1_qyg0h")
+metallic = 1.0
+metallic_texture = ExtResource("3_867b2")
+roughness_texture = ExtResource("5_hftd0")
+normal_enabled = true
+normal_texture = ExtResource("4_7mmor")
+ao_enabled = true
+ao_texture = ExtResource("2_kgjot")
+uv1_scale = Vector3(0.3, 0.3, 0.3)
+uv1_triplanar = true
+uv1_world_triplanar = true

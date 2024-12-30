@@ -1,0 +1,273 @@
+[gd_resource type="VisualShader" load_steps=15 format=3 uid="uid://bteml77e3r3fd"]
+
+[sub_resource type="VisualShaderNodeTextureParameterTriplanar" id="VisualShaderNodeTextureParameterTriplanar_drblw"]
+parameter_name = "Albedo"
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeTextureParameterTriplanar" id="VisualShaderNodeTextureParameterTriplanar_ww6nb"]
+parameter_name = "Roughness"
+
+[sub_resource type="VisualShaderNodeTextureParameterTriplanar" id="VisualShaderNodeTextureParameterTriplanar_qlgpa"]
+parameter_name = "NormalMap"
+texture_type = 2
+
+[sub_resource type="VisualShaderNodeColorOp" id="VisualShaderNodeColorOp_mttsm"]
+operator = 4
+
+[sub_resource type="VisualShaderNodeTextureParameterTriplanar" id="VisualShaderNodeTextureParameterTriplanar_ja21n"]
+parameter_name = "AmbientOcclusion"
+
+[sub_resource type="VisualShaderNodeExpression" id="VisualShaderNodeExpression_2qg5d"]
+size = Vector2(700, 640)
+expression = "float mix_value = MixTexture.x;
+float invert_mix_value = 1.0 - mix_value;
+AlbedoOut = MainAlbedo * mix_value + SecondAlbedo * invert_mix_value;
+RoughOut = MainRoughness * mix_value + SecondRoughness * invert_mix_value;
+AmbientOcclusionOut = MainAmbientOcclusion * mix_value + SecondAmbientOcc * invert_mix_value;
+NormalMapOut = MainNormalMap * mix_value + SecondNormalMap * invert_mix_value;"
+
+[sub_resource type="VisualShaderNodeTextureParameterTriplanar" id="VisualShaderNodeTextureParameterTriplanar_dqq47"]
+parameter_name = "Roughness2"
+
+[sub_resource type="VisualShaderNodeTextureParameterTriplanar" id="VisualShaderNodeTextureParameterTriplanar_8wbe2"]
+parameter_name = "AmbientOcclusion2"
+
+[sub_resource type="VisualShaderNodeTextureParameterTriplanar" id="VisualShaderNodeTextureParameterTriplanar_k23m7"]
+parameter_name = "NormalMap2"
+texture_type = 2
+
+[sub_resource type="VisualShaderNodeTextureParameterTriplanar" id="VisualShaderNodeTextureParameterTriplanar_m18nt"]
+parameter_name = "Albedo2"
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_21pf6"]
+parameter_name = "Texture_1_Tint"
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_7xlul"]
+parameter_name = "Texture_2_Tint"
+
+[sub_resource type="VisualShaderNodeColorOp" id="VisualShaderNodeColorOp_ysnug"]
+operator = 4
+
+[sub_resource type="VisualShaderNodeTextureParameterTriplanar" id="VisualShaderNodeTextureParameterTriplanar_nobsj"]
+parameter_name = "TextureParameterTriplanar"
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx, world_vertex_coords;
+
+uniform sampler2D Albedo : source_color;
+uniform vec4 Texture_1_Tint : source_color;
+uniform sampler2D Roughness;
+uniform sampler2D AmbientOcclusion;
+uniform sampler2D NormalMap : hint_normal;
+uniform sampler2D Albedo2 : source_color;
+uniform vec4 Texture_2_Tint : source_color;
+uniform sampler2D Roughness2;
+uniform sampler2D AmbientOcclusion2;
+uniform sampler2D NormalMap2 : hint_normal;
+uniform sampler2D TextureParameterTriplanar;
+
+
+// TextureParameterTriplanar
+	vec4 triplanar_texture(sampler2D p_sampler, vec3 p_weights, vec3 p_triplanar_pos) {
+		vec4 samp = vec4(0.0);
+		samp += texture(p_sampler, p_triplanar_pos.xy) * p_weights.z;
+		samp += texture(p_sampler, p_triplanar_pos.xz) * p_weights.y;
+		samp += texture(p_sampler, p_triplanar_pos.zy * vec2(-1.0, 1.0)) * p_weights.x;
+		return samp;
+	}
+
+	uniform vec3 triplanar_scale = vec3(1.0, 1.0, 1.0);
+	uniform vec3 triplanar_offset;
+	uniform float triplanar_sharpness = 0.5;
+
+	varying vec3 triplanar_power_normal;
+	varying vec3 triplanar_pos;
+
+void vertex() {
+// TextureParameterTriplanar
+	{
+		triplanar_power_normal = pow(abs(NORMAL), vec3(triplanar_sharpness));
+		triplanar_power_normal /= dot(triplanar_power_normal, vec3(1.0));
+		triplanar_pos = VERTEX * triplanar_scale + triplanar_offset;
+		triplanar_pos *= vec3(1.0, -1.0, 1.0);
+	}
+}
+
+void fragment() {
+// TextureParameterTriplanar:10
+	vec4 n_out10p0 = triplanar_texture(Albedo, triplanar_power_normal, triplanar_pos);
+
+
+// ColorParameter:32
+	vec4 n_out32p0 = Texture_1_Tint;
+
+
+	vec3 n_out13p0;
+// ColorOp:13
+	{
+		float base = vec3(n_out10p0.xyz).x;
+		float blend = vec3(n_out32p0.xyz).x;
+		if (base < 0.5) {
+			n_out13p0.x = 2.0 * base * blend;
+		} else {
+			n_out13p0.x = 1.0 - 2.0 * (1.0 - blend) * (1.0 - base);
+		}
+	}
+	{
+		float base = vec3(n_out10p0.xyz).y;
+		float blend = vec3(n_out32p0.xyz).y;
+		if (base < 0.5) {
+			n_out13p0.y = 2.0 * base * blend;
+		} else {
+			n_out13p0.y = 1.0 - 2.0 * (1.0 - blend) * (1.0 - base);
+		}
+	}
+	{
+		float base = vec3(n_out10p0.xyz).z;
+		float blend = vec3(n_out32p0.xyz).z;
+		if (base < 0.5) {
+			n_out13p0.z = 2.0 * base * blend;
+		} else {
+			n_out13p0.z = 1.0 - 2.0 * (1.0 - blend) * (1.0 - base);
+		}
+	}
+
+
+// TextureParameterTriplanar:11
+	vec4 n_out11p0 = triplanar_texture(Roughness, triplanar_power_normal, triplanar_pos);
+
+
+// TextureParameterTriplanar:15
+	vec4 n_out15p0 = triplanar_texture(AmbientOcclusion, triplanar_power_normal, triplanar_pos);
+
+
+// TextureParameterTriplanar:12
+	vec4 n_out12p0 = triplanar_texture(NormalMap, triplanar_power_normal, triplanar_pos);
+
+
+// TextureParameterTriplanar:29
+	vec4 n_out29p0 = triplanar_texture(Albedo2, triplanar_power_normal, triplanar_pos);
+
+
+// ColorParameter:33
+	vec4 n_out33p0 = Texture_2_Tint;
+
+
+	vec3 n_out34p0;
+// ColorOp:34
+	{
+		float base = vec3(n_out29p0.xyz).x;
+		float blend = vec3(n_out33p0.xyz).x;
+		if (base < 0.5) {
+			n_out34p0.x = 2.0 * base * blend;
+		} else {
+			n_out34p0.x = 1.0 - 2.0 * (1.0 - blend) * (1.0 - base);
+		}
+	}
+	{
+		float base = vec3(n_out29p0.xyz).y;
+		float blend = vec3(n_out33p0.xyz).y;
+		if (base < 0.5) {
+			n_out34p0.y = 2.0 * base * blend;
+		} else {
+			n_out34p0.y = 1.0 - 2.0 * (1.0 - blend) * (1.0 - base);
+		}
+	}
+	{
+		float base = vec3(n_out29p0.xyz).z;
+		float blend = vec3(n_out33p0.xyz).z;
+		if (base < 0.5) {
+			n_out34p0.z = 2.0 * base * blend;
+		} else {
+			n_out34p0.z = 1.0 - 2.0 * (1.0 - blend) * (1.0 - base);
+		}
+	}
+
+
+// TextureParameterTriplanar:26
+	vec4 n_out26p0 = triplanar_texture(Roughness2, triplanar_power_normal, triplanar_pos);
+
+
+// TextureParameterTriplanar:27
+	vec4 n_out27p0 = triplanar_texture(AmbientOcclusion2, triplanar_power_normal, triplanar_pos);
+
+
+// TextureParameterTriplanar:28
+	vec4 n_out28p0 = triplanar_texture(NormalMap2, triplanar_power_normal, triplanar_pos);
+
+
+// TextureParameterTriplanar:35
+	vec4 n_out35p0 = triplanar_texture(TextureParameterTriplanar, triplanar_power_normal, triplanar_pos);
+
+
+	vec3 n_out25p0;
+	float n_out25p1;
+	float n_out25p2;
+	vec3 n_out25p3;
+// Expression:25
+	n_out25p0 = vec3(0.0, 0.0, 0.0);
+	n_out25p1 = 0.0;
+	n_out25p2 = 0.0;
+	n_out25p3 = vec3(0.0, 0.0, 0.0);
+	{
+		float mix_value = vec3(n_out35p0.xyz).x;
+		float invert_mix_value = 1.0 - mix_value;
+		n_out25p0 = n_out13p0 * mix_value + n_out34p0 * invert_mix_value;
+		n_out25p1 = n_out11p0.x * mix_value + n_out26p0.x * invert_mix_value;
+		n_out25p2 = n_out15p0.x * mix_value + n_out27p0.x * invert_mix_value;
+		n_out25p3 = vec3(n_out12p0.xyz) * mix_value + vec3(n_out28p0.xyz) * invert_mix_value;
+	}
+
+
+// Output:0
+	ALBEDO = n_out25p0;
+	ROUGHNESS = n_out25p1;
+	AO = n_out25p2;
+	NORMAL_MAP = n_out25p3;
+
+
+}
+"
+graph_offset = Vector2(706.732, 854.224)
+flags/world_vertex_coords = true
+nodes/fragment/0/position = Vector2(3140, 1560)
+nodes/fragment/10/node = SubResource("VisualShaderNodeTextureParameterTriplanar_drblw")
+nodes/fragment/10/position = Vector2(640, 260)
+nodes/fragment/11/node = SubResource("VisualShaderNodeTextureParameterTriplanar_ww6nb")
+nodes/fragment/11/position = Vector2(640, 620)
+nodes/fragment/12/node = SubResource("VisualShaderNodeTextureParameterTriplanar_qlgpa")
+nodes/fragment/12/position = Vector2(640, 1320)
+nodes/fragment/13/node = SubResource("VisualShaderNodeColorOp_mttsm")
+nodes/fragment/13/position = Vector2(1240, 560)
+nodes/fragment/15/node = SubResource("VisualShaderNodeTextureParameterTriplanar_ja21n")
+nodes/fragment/15/position = Vector2(640, 960)
+nodes/fragment/25/node = SubResource("VisualShaderNodeExpression_2qg5d")
+nodes/fragment/25/position = Vector2(2360, 1600)
+nodes/fragment/25/size = Vector2(700, 640)
+nodes/fragment/25/input_ports = "0,4,MainAlbedo;1,0,MainRoughness;2,0,MainAmbientOcclusion;3,4,MainNormalMap;4,4,SecondAlbedo;5,0,SecondRoughness;6,0,SecondAmbientOcc;7,4,SecondNormalMap;8,4,MixTexture;"
+nodes/fragment/25/output_ports = "0,4,AlbedoOut;1,0,RoughOut;2,0,AmbientOcclusionOut;3,4,NormalMapOut;"
+nodes/fragment/25/expression = "float mix_value = MixTexture.x;
+float invert_mix_value = 1.0 - mix_value;
+AlbedoOut = MainAlbedo * mix_value + SecondAlbedo * invert_mix_value;
+RoughOut = MainRoughness * mix_value + SecondRoughness * invert_mix_value;
+AmbientOcclusionOut = MainAmbientOcclusion * mix_value + SecondAmbientOcc * invert_mix_value;
+NormalMapOut = MainNormalMap * mix_value + SecondNormalMap * invert_mix_value;"
+nodes/fragment/26/node = SubResource("VisualShaderNodeTextureParameterTriplanar_dqq47")
+nodes/fragment/26/position = Vector2(640, 2160)
+nodes/fragment/27/node = SubResource("VisualShaderNodeTextureParameterTriplanar_8wbe2")
+nodes/fragment/27/position = Vector2(640, 2500)
+nodes/fragment/28/node = SubResource("VisualShaderNodeTextureParameterTriplanar_k23m7")
+nodes/fragment/28/position = Vector2(640, 2860)
+nodes/fragment/29/node = SubResource("VisualShaderNodeTextureParameterTriplanar_m18nt")
+nodes/fragment/29/position = Vector2(640, 1800)
+nodes/fragment/32/node = SubResource("VisualShaderNodeColorParameter_21pf6")
+nodes/fragment/32/position = Vector2(940, 660)
+nodes/fragment/33/node = SubResource("VisualShaderNodeColorParameter_7xlul")
+nodes/fragment/33/position = Vector2(960, 2120)
+nodes/fragment/34/node = SubResource("VisualShaderNodeColorOp_ysnug")
+nodes/fragment/34/position = Vector2(1240, 1980)
+nodes/fragment/35/node = SubResource("VisualShaderNodeTextureParameterTriplanar_nobsj")
+nodes/fragment/35/position = Vector2(1920, 2200)
+nodes/fragment/connections = PackedInt32Array(10, 0, 13, 0, 13, 0, 25, 0, 25, 0, 0, 0, 25, 1, 0, 3, 11, 0, 25, 1, 15, 0, 25, 2, 25, 2, 0, 6, 12, 0, 25, 3, 25, 3, 0, 9, 26, 0, 25, 5, 27, 0, 25, 6, 28, 0, 25, 7, 32, 0, 13, 1, 33, 0, 34, 1, 29, 0, 34, 0, 34, 0, 25, 4, 35, 0, 25, 8)

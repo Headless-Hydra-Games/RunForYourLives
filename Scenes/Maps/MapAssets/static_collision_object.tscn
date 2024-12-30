@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://c2cslqo802p7i"]
+
+[ext_resource type="Script" path="res://Scenes/Maps/MapAssets/static_collision_object.gd" id="1_4vkhw"]
+
+[node name="static_collision_object" type="Node3D"]
+script = ExtResource("1_4vkhw")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]

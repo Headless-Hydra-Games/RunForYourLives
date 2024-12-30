@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bf2b7miq6udkr"]
+
+[ext_resource type="ArrayMesh" uid="uid://bafulfobid11q" path="res://Models/Stairs.obj" id="1_c42ih"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_6uwaa"]
+points = PackedVector3Array(1, 2.03, -1.27, -1, 2.03, -1.27, 1, 0, 1.27, -1, 0, 1.27, 1, 0, -1.27, -1, 0, -1.27)
+
+[node name="stairs" type="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.27254)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_c42ih")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_6uwaa")

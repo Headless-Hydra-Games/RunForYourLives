@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://buw8mqdl2ixsy"]
+
+[ext_resource type="PackedScene" uid="uid://5nq5wnskbkhl" path="res://Scenes/Maps/MapAssets/hallway.tscn" id="1_gpvv3"]
+[ext_resource type="PackedScene" uid="uid://c2cslqo802p7i" path="res://Scenes/Maps/MapAssets/static_collision_object.tscn" id="2_r7t5h"]
+[ext_resource type="Material" uid="uid://dvajlfdixftrc" path="res://Scenes/Maps/MapAssets/Materials/ConcreteLayersMaterial.tres" id="3_achma"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_vrbjs"]
+material = ExtResource("3_achma")
+size = Vector2(1, 2.5)
+center_offset = Vector3(0, 0, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hw55w"]
+size = Vector3(1, 1, 0.1)
+
+[node name="HallwayEnd" type="Node3D"]
+
+[node name="Hallway" parent="." instance=ExtResource("1_gpvv3")]
+
+[node name="static_collision_object" parent="." instance=ExtResource("2_r7t5h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, -2.1)
+mesh = SubResource("QuadMesh_vrbjs")
+collision_shape = SubResource("BoxShape3D_hw55w")

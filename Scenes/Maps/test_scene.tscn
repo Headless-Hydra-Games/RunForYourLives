@@ -1,0 +1,101 @@
+[gd_scene load_steps=14 format=3 uid="uid://bbpdfr5lrf7d4"]
+
+[ext_resource type="PackedScene" uid="uid://c2cslqo802p7i" path="res://Scenes/Maps/MapAssets/static_collision_object.tscn" id="1_m6deb"]
+[ext_resource type="Script" path="res://Scenes/Maps/test_scene.gd" id="1_ok7n5"]
+[ext_resource type="Environment" uid="uid://1v64rcf2lewr" path="res://Scenes/Maps/MapAssets/WorldEnvironments/DarkRoomEnvironment.tres" id="2_5g4j7"]
+[ext_resource type="Material" uid="uid://c81mdyqbiwf43" path="res://Scenes/Maps/MapAssets/Materials/FloorMaterial.tres" id="2_vxhj6"]
+[ext_resource type="Material" uid="uid://dvajlfdixftrc" path="res://Scenes/Maps/MapAssets/Materials/ConcreteLayersMaterial.tres" id="3_gqbx1"]
+[ext_resource type="Material" uid="uid://c5jubyg0gw0c0" path="res://Scenes/Maps/MapAssets/Materials/CeilingMaterial.tres" id="5_44rnc"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_cmvv7"]
+lightmap_size_hint = Vector2i(502, 502)
+material = ExtResource("2_vxhj6")
+add_uv2 = true
+size = Vector2(100, 100)
+center_offset = Vector3(0, 0, 0.05)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ng5um"]
+size = Vector3(100, 100, 0.1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_rvmvi"]
+material = ExtResource("5_44rnc")
+size = Vector2(100, 100)
+center_offset = Vector3(0, 0, 0.05)
+
+[sub_resource type="QuadMesh" id="QuadMesh_dlhy1"]
+material = ExtResource("3_gqbx1")
+size = Vector2(100, 2.5)
+center_offset = Vector3(0, 0, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2e2o7"]
+size = Vector3(100, 2.5, 0.1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_n2lin"]
+material = ExtResource("3_gqbx1")
+size = Vector2(5, 2.5)
+center_offset = Vector3(0, 0, 0.05)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_26mvl"]
+size = Vector3(5, 2.5, 0.1)
+
+[node name="TestScene" type="Node3D"]
+script = ExtResource("1_ok7n5")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("2_5g4j7")
+
+[node name="Floor" parent="." instance=ExtResource("1_m6deb")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("QuadMesh_cmvv7")
+collision_shape = SubResource("BoxShape3D_ng5um")
+
+[node name="Ceiling" parent="." instance=ExtResource("1_m6deb")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 2.5, 0)
+mesh = SubResource("QuadMesh_rvmvi")
+collision_shape = SubResource("BoxShape3D_ng5um")
+
+[node name="Outerwall1" parent="." instance=ExtResource("1_m6deb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, -50)
+mesh = SubResource("QuadMesh_dlhy1")
+collision_shape = SubResource("BoxShape3D_2e2o7")
+
+[node name="Outerwall2" parent="." instance=ExtResource("1_m6deb")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -50, 1.25, 0)
+mesh = SubResource("QuadMesh_dlhy1")
+collision_shape = SubResource("BoxShape3D_2e2o7")
+
+[node name="Outerwall3" parent="." instance=ExtResource("1_m6deb")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 50, 1.25, 0)
+mesh = SubResource("QuadMesh_dlhy1")
+collision_shape = SubResource("BoxShape3D_2e2o7")
+
+[node name="Outerwall4" parent="." instance=ExtResource("1_m6deb")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.25, 50)
+mesh = SubResource("QuadMesh_dlhy1")
+collision_shape = SubResource("BoxShape3D_2e2o7")
+
+[node name="Wall" parent="." instance=ExtResource("1_m6deb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, -6.47448)
+mesh = SubResource("QuadMesh_n2lin")
+collision_shape = SubResource("BoxShape3D_26mvl")
+
+[node name="Wall2" parent="." instance=ExtResource("1_m6deb")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.5, 1.25, 0)
+mesh = SubResource("QuadMesh_n2lin")
+collision_shape = SubResource("BoxShape3D_26mvl")
+
+[node name="Wall3" parent="." instance=ExtResource("1_m6deb")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.5, 1.25, 0)
+mesh = SubResource("QuadMesh_n2lin")
+collision_shape = SubResource("BoxShape3D_26mvl")
+
+[node name="Wall4" parent="." instance=ExtResource("1_m6deb")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.25, 2.5)
+mesh = SubResource("QuadMesh_n2lin")
+collision_shape = SubResource("BoxShape3D_26mvl")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.87008, 0)
+visible = false
+light_color = Color(0.870588, 1, 1, 1)
+light_energy = 0.5

@@ -1,0 +1,117 @@
+[gd_scene load_steps=14 format=3 uid="uid://d1uchyikrdhkg"]
+
+[ext_resource type="PackedScene" uid="uid://c2cslqo802p7i" path="res://Scenes/Maps/MapAssets/static_collision_object.tscn" id="1_wd0od"]
+[ext_resource type="Material" uid="uid://c81mdyqbiwf43" path="res://Scenes/Maps/MapAssets/Materials/FloorMaterial.tres" id="2_cxcab"]
+[ext_resource type="Material" uid="uid://dvajlfdixftrc" path="res://Scenes/Maps/MapAssets/Materials/ConcreteLayersMaterial.tres" id="2_rthv3"]
+[ext_resource type="Material" uid="uid://c5jubyg0gw0c0" path="res://Scenes/Maps/MapAssets/Materials/CeilingMaterial.tres" id="3_oyl0n"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_7li5n"]
+material = ExtResource("2_cxcab")
+size = Vector2(1, 4)
+center_offset = Vector3(0, 0, 0.25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wsqwp"]
+size = Vector3(1, 4, 0.5)
+
+[sub_resource type="QuadMesh" id="QuadMesh_1t2l5"]
+material = ExtResource("3_oyl0n")
+size = Vector2(1, 4)
+center_offset = Vector3(0, 0, 0.25)
+
+[sub_resource type="QuadMesh" id="QuadMesh_fupmg"]
+material = ExtResource("2_rthv3")
+size = Vector2(1.5, 2.5)
+center_offset = Vector3(0, 0, 0.25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xsqs1"]
+size = Vector3(1.5, 2.5, 0.5)
+
+[sub_resource type="QuadMesh" id="QuadMesh_ooqa6"]
+material = ExtResource("2_cxcab")
+size = Vector2(1.5, 1)
+center_offset = Vector3(0, 0, 0.25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6di0g"]
+size = Vector3(1.5, 1, 0.5)
+
+[sub_resource type="QuadMesh" id="QuadMesh_xlcuu"]
+material = ExtResource("3_oyl0n")
+size = Vector2(1.5, 1)
+center_offset = Vector3(0, 0, 0.25)
+
+[sub_resource type="QuadMesh" id="QuadMesh_rfdn5"]
+material = ExtResource("3_oyl0n")
+size = Vector2(1.5, 1)
+center_offset = Vector3(0, 0, 0.25)
+
+[node name="HallwayJunction4Way" type="Node3D"]
+
+[node name="floor" parent="." instance=ExtResource("1_wd0od")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.25, 0)
+mesh = SubResource("QuadMesh_7li5n")
+collision_shape = SubResource("BoxShape3D_wsqwp")
+
+[node name="ceiling" parent="." instance=ExtResource("1_wd0od")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 2.75, 0)
+mesh = SubResource("QuadMesh_1t2l5")
+collision_shape = SubResource("BoxShape3D_wsqwp")
+
+[node name="static_collision_object" parent="." instance=ExtResource("1_wd0od")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.75, 1.25, 1.25)
+mesh = SubResource("QuadMesh_fupmg")
+collision_shape = SubResource("BoxShape3D_xsqs1")
+
+[node name="static_collision_object7" parent="." instance=ExtResource("1_wd0od")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.75, 1.25, 1.25)
+mesh = SubResource("QuadMesh_fupmg")
+collision_shape = SubResource("BoxShape3D_xsqs1")
+
+[node name="static_collision_object8" parent="." instance=ExtResource("1_wd0od")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.75, 1.25, -1.25)
+mesh = SubResource("QuadMesh_fupmg")
+collision_shape = SubResource("BoxShape3D_xsqs1")
+
+[node name="static_collision_object11" parent="." instance=ExtResource("1_wd0od")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 1.25, -0.75)
+mesh = SubResource("QuadMesh_fupmg")
+collision_shape = SubResource("BoxShape3D_xsqs1")
+
+[node name="static_collision_object12" parent="." instance=ExtResource("1_wd0od")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.25, 1.25, 0.75)
+mesh = SubResource("QuadMesh_fupmg")
+collision_shape = SubResource("BoxShape3D_xsqs1")
+
+[node name="static_collision_object2" parent="." instance=ExtResource("1_wd0od")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.75, 1.25, -1.25)
+mesh = SubResource("QuadMesh_fupmg")
+collision_shape = SubResource("BoxShape3D_xsqs1")
+
+[node name="static_collision_object3" parent="." instance=ExtResource("1_wd0od")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 1.25, -0.75)
+mesh = SubResource("QuadMesh_fupmg")
+collision_shape = SubResource("BoxShape3D_xsqs1")
+
+[node name="static_collision_object4" parent="." instance=ExtResource("1_wd0od")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.25, 1.25, 0.75)
+mesh = SubResource("QuadMesh_fupmg")
+collision_shape = SubResource("BoxShape3D_xsqs1")
+
+[node name="static_collision_object5" parent="." instance=ExtResource("1_wd0od")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 1.25, -0.25, 0)
+mesh = SubResource("QuadMesh_ooqa6")
+collision_shape = SubResource("BoxShape3D_6di0g")
+
+[node name="static_collision_object9" parent="." instance=ExtResource("1_wd0od")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -1.25, -0.25, 0)
+mesh = SubResource("QuadMesh_ooqa6")
+collision_shape = SubResource("BoxShape3D_6di0g")
+
+[node name="static_collision_object6" parent="." instance=ExtResource("1_wd0od")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 1.25, 2.75, 0)
+mesh = SubResource("QuadMesh_xlcuu")
+collision_shape = SubResource("BoxShape3D_6di0g")
+
+[node name="static_collision_object10" parent="." instance=ExtResource("1_wd0od")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -1.25, 2.75, 0)
+mesh = SubResource("QuadMesh_rfdn5")
+collision_shape = SubResource("BoxShape3D_6di0g")
