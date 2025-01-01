@@ -1,0 +1,76 @@
+[gd_scene load_steps=15 format=3 uid="uid://c582h57dlcxmq"]
+
+[ext_resource type="Script" path="res://scripts/Maps/assets/GridMap/RoomParts/ceiling.gd" id="1_6u6ga"]
+[ext_resource type="PackedScene" uid="uid://c2cslqo802p7i" path="res://Scenes/Maps/MapAssets/static_collision_object.tscn" id="2_ysjb6"]
+[ext_resource type="Material" uid="uid://c5jubyg0gw0c0" path="res://Scenes/Maps/MapAssets/Materials/CeilingMaterial.tres" id="3_j7uwb"]
+[ext_resource type="Material" uid="uid://c81mdyqbiwf43" path="res://Scenes/Maps/MapAssets/Materials/FloorMaterial.tres" id="4_lesqp"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_fhk1i"]
+material = ExtResource("3_j7uwb")
+size = Vector3(4, 0.1, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kr4ly"]
+size = Vector3(4, 0.1, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_34a7d"]
+material = ExtResource("3_j7uwb")
+size = Vector3(1, 0.1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1p5mu"]
+size = Vector3(1, 0.1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_04jyu"]
+material = ExtResource("3_j7uwb")
+size = Vector3(4, 0.1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xvwjl"]
+size = Vector3(4, 0.1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ndror"]
+material = ExtResource("4_lesqp")
+size = Vector3(1, 0.1, 2.828)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ejo5j"]
+size = Vector3(1, 0.1, 2.828)
+
+[sub_resource type="BoxMesh" id="BoxMesh_mcory"]
+material = ExtResource("4_lesqp")
+size = Vector3(1, 0.1, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vkexj"]
+size = Vector3(1, 0.1, 2)
+
+[node name="CeilingStairs" type="Node3D"]
+script = ExtResource("1_6u6ga")
+
+[node name="static_collision_object" parent="." instance=ExtResource("2_ysjb6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.95, 1)
+mesh = SubResource("BoxMesh_fhk1i")
+collision_shape = SubResource("BoxShape3D_kr4ly")
+
+[node name="static_collision_object2" parent="." instance=ExtResource("2_ysjb6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 3.95, -0.5)
+mesh = SubResource("BoxMesh_34a7d")
+collision_shape = SubResource("BoxShape3D_1p5mu")
+
+[node name="static_collision_object4" parent="." instance=ExtResource("2_ysjb6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.95, -1.5)
+mesh = SubResource("BoxMesh_04jyu")
+collision_shape = SubResource("BoxShape3D_xvwjl")
+
+[node name="stairs" type="Node3D" parent="."]
+
+[node name="upper_ramp" parent="stairs" instance=ExtResource("2_ysjb6")]
+transform = Transform3D(-4.37114e-08, 0.707107, 0.707107, 0, 0.707107, -0.707107, -1, -3.09086e-08, -3.09086e-08, 0, 3, -0.5)
+mesh = SubResource("BoxMesh_ndror")
+collision_shape = SubResource("BoxShape3D_ejo5j")
+
+[node name="lower_ramp" parent="stairs" instance=ExtResource("2_ysjb6")]
+transform = Transform3D(-4.37114e-08, -0.707107, -0.707107, 0, 0.707107, -0.707107, 1, -3.09086e-08, -3.09086e-08, 0, 1, 0.5)
+mesh = SubResource("BoxMesh_ndror")
+collision_shape = SubResource("BoxShape3D_ejo5j")
+
+[node name="Landing" parent="stairs" instance=ExtResource("2_ysjb6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 2, 0)
+mesh = SubResource("BoxMesh_mcory")
+collision_shape = SubResource("BoxShape3D_vkexj")

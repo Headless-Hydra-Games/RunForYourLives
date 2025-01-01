@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8c2niw261b7w"]
+
+[ext_resource type="Script" path="res://scripts/Maps/assets/GridMap/grid_map.gd" id="1_wxpna"]
+
+[node name="GridMap" type="Node"]
+script = ExtResource("1_wxpna")
+max_rooms = null

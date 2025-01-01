@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bmfk15onjvkwd"]
 
-[ext_resource type="Script" path="res://scripts/FPplayer.gd" id="1_0hsjl"]
+[ext_resource type="Script" path="res://scripts/Entities/FPplayer.gd" id="1_0hsjl"]
 [ext_resource type="PackedScene" uid="uid://dhvurq04jsnpj" path="res://Models/Human.blend" id="3_tad6j"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8fyme"]

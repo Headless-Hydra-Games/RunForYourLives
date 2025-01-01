@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://dovbi8hlm5jwg"]
 
-[ext_resource type="Theme" uid="uid://bfh3g34gbyhq2" path="res://new_theme.tres" id="1_nhphl"]
-[ext_resource type="Script" path="res://scripts/multiplayer_ui.gd" id="1_yfv6y"]
-[ext_resource type="PackedScene" uid="uid://cjrc8yygo7msc" path="res://Scenes/ListView.tscn" id="2_lag6h"]
+[ext_resource type="Theme" uid="uid://bfh3g34gbyhq2" path="res://Themes/new_theme.tres" id="1_nhphl"]
+[ext_resource type="Script" path="res://scripts/UI/multiplayer_ui.gd" id="1_yfv6y"]
+[ext_resource type="PackedScene" uid="uid://cjrc8yygo7msc" path="res://Scenes/UI/ListView.tscn" id="2_lag6h"]
 
 [sub_resource type="Theme" id="Theme_phggm"]
 

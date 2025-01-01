@@ -13,7 +13,7 @@ var level: Level
 			else:
 				level_scene = v
 
-const Player_instance = preload("res://Scenes/player.tscn")
+const Player_instance = preload("res://Scenes/Entities/player.tscn")
 
 func _ready():
 	$MultiplayerManager.startBtn.pressed.connect(start_game.rpc)

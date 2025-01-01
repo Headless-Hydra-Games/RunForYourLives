@@ -24,7 +24,7 @@ func _ready():
 	$Client.timeout_signal.connect(func(): $MultiplayerUI.joinServerError("Connection timeout"))
 
 func create_server():
-	server = load("res://Scenes/server.tscn").instantiate()
+	server = load("res://Scenes/Networking/server.tscn").instantiate()
 	add_child(server)
 	var result = server.create_server(port)
 	if result != OK:

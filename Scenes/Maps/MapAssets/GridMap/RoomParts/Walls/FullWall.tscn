@@ -1,0 +1,20 @@
+[gd_scene load_steps=6 format=3 uid="uid://bkuqwb7jwx5dr"]
+
+[ext_resource type="Script" path="res://scripts/Maps/assets/GridMap/RoomParts/wall.gd" id="1_rpds4"]
+[ext_resource type="PackedScene" uid="uid://c2cslqo802p7i" path="res://Scenes/Maps/MapAssets/static_collision_object.tscn" id="2_0re5i"]
+[ext_resource type="Material" uid="uid://dvajlfdixftrc" path="res://Scenes/Maps/MapAssets/Materials/ConcreteLayersMaterial.tres" id="3_y67v4"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_2asot"]
+material = ExtResource("3_y67v4")
+size = Vector3(4, 4, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2hffd"]
+size = Vector3(4, 4, 0.1)
+
+[node name="FullWall" type="Node3D"]
+script = ExtResource("1_rpds4")
+
+[node name="static_collision_object" parent="." instance=ExtResource("2_0re5i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+mesh = SubResource("BoxMesh_2asot")
+collision_shape = SubResource("BoxShape3D_2hffd")

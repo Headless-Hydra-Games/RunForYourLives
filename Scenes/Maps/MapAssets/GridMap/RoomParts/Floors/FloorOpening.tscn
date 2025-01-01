@@ -1,0 +1,44 @@
+[gd_scene load_steps=10 format=3 uid="uid://bcsxkcyu4th3v"]
+
+[ext_resource type="Script" path="res://scripts/Maps/assets/GridMap/RoomParts/floor.gd" id="1_jr4jw"]
+[ext_resource type="PackedScene" uid="uid://c2cslqo802p7i" path="res://Scenes/Maps/MapAssets/static_collision_object.tscn" id="2_3n64f"]
+[ext_resource type="Material" uid="uid://c81mdyqbiwf43" path="res://Scenes/Maps/MapAssets/Materials/FloorMaterial.tres" id="3_n1j25"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_f4b5g"]
+material = ExtResource("3_n1j25")
+size = Vector3(4, 0.1, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_68b6b"]
+size = Vector3(4, 0.1, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_w4b1n"]
+material = ExtResource("3_n1j25")
+size = Vector3(1, 0.1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ukbwr"]
+size = Vector3(1, 0.1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_0cqsf"]
+material = ExtResource("3_n1j25")
+size = Vector3(4, 0.1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_13hwp"]
+size = Vector3(4, 0.1, 1)
+
+[node name="FloorOpening" type="Node3D"]
+script = ExtResource("1_jr4jw")
+
+[node name="static_collision_object" parent="." instance=ExtResource("2_3n64f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 1)
+mesh = SubResource("BoxMesh_f4b5g")
+collision_shape = SubResource("BoxShape3D_68b6b")
+
+[node name="static_collision_object2" parent="." instance=ExtResource("2_3n64f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.05, -0.5)
+mesh = SubResource("BoxMesh_w4b1n")
+collision_shape = SubResource("BoxShape3D_ukbwr")
+
+[node name="static_collision_object4" parent="." instance=ExtResource("2_3n64f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, -1.5)
+mesh = SubResource("BoxMesh_0cqsf")
+collision_shape = SubResource("BoxShape3D_13hwp")

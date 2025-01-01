@@ -1,0 +1,20 @@
+[gd_scene load_steps=6 format=3 uid="uid://xq48b4safrgt"]
+
+[ext_resource type="Script" path="res://scripts/Maps/assets/GridMap/RoomParts/ceiling.gd" id="1_unvb4"]
+[ext_resource type="PackedScene" uid="uid://c2cslqo802p7i" path="res://Scenes/Maps/MapAssets/static_collision_object.tscn" id="2_8qycd"]
+[ext_resource type="Material" uid="uid://c5jubyg0gw0c0" path="res://Scenes/Maps/MapAssets/Materials/CeilingMaterial.tres" id="3_cjw7i"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_s1tcr"]
+material = ExtResource("3_cjw7i")
+size = Vector3(4, 0.1, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gxqv5"]
+size = Vector3(4, 0.1, 4)
+
+[node name="FullCeiling" type="Node3D"]
+script = ExtResource("1_unvb4")
+
+[node name="static_collision_object" parent="." instance=ExtResource("2_8qycd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.95, 0)
+mesh = SubResource("BoxMesh_s1tcr")
+collision_shape = SubResource("BoxShape3D_gxqv5")

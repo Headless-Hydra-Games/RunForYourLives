@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cjrc8yygo7msc"]
 
-[ext_resource type="Script" path="res://scripts/list_view.gd" id="1_weyac"]
+[ext_resource type="Script" path="res://scripts/UI/list_view.gd" id="1_weyac"]
 
 [node name="ListView" type="Control"]
 layout_mode = 3
