@@ -49,7 +49,7 @@ var connections = {
 	ConnectionType.FLOOR: false
 }
 
-func _ready():
+func create_room(room_size: Vector3):
 	var floor_instance = null
 	if floor_index < floor_scenes.size():
 		floor_instance = floor_scenes[floor_index].instantiate()
@@ -61,24 +61,24 @@ func _ready():
 	var north_wall = null
 	if north_wall_index < wall_scenes.size():
 		north_wall = wall_scenes[north_wall_index].instantiate()
-		north_wall.set_position(Vector3(0.0, 0.0, -1.95))
+		north_wall.set_position(Vector3(0.0, 0.0, -1 * (room_size.z/2.0 -0.05)))
 	
 	var south_wall = null
 	if south_wall_index < wall_scenes.size():
 		south_wall = wall_scenes[south_wall_index].instantiate()
-		south_wall.set_position(Vector3(0.0, 0.0, 1.95))
+		south_wall.set_position(Vector3(0.0, 0.0, room_size.z/2.0 -0.05))
 	
 	var east_wall = null
 	if east_wall_index < wall_scenes.size():
 		east_wall = wall_scenes[east_wall_index].instantiate()
 		east_wall.rotate_y(PI/2)
-		east_wall.set_position(Vector3(1.95, 0.0, 0.0))
+		east_wall.set_position(Vector3(room_size.x/2.0 -0.05, 0.0, 0.0))
 	
 	var west_wall = null
 	if west_wall_index < wall_scenes.size():
 		west_wall = wall_scenes[west_wall_index].instantiate()
 		west_wall.rotate_y(PI/2)
-		west_wall.set_position(Vector3(-1.95, 0.0, 0.0))
+		west_wall.set_position(Vector3(-1 * (room_size.x/2.0 -0.05), 0.0, 0.0))
 	
 	add_room_part(floor_instance)
 	add_room_part(ceiling)

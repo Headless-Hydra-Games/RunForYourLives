@@ -6,10 +6,10 @@
 
 [sub_resource type="BoxMesh" id="BoxMesh_wtvsv"]
 material = ExtResource("2_tg6k7")
-size = Vector3(4, 0.1, 4)
+size = Vector3(6, 0.1, 6)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sgoi1"]
-size = Vector3(4, 0.1, 4)
+size = Vector3(6, 0.1, 6)
 
 [node name="FullFloor" type="Node3D"]
 script = ExtResource("1_j5n7i")

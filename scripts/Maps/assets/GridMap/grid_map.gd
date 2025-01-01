@@ -2,7 +2,7 @@
 extends Node
 
 @export var map_size = Vector3(10, 10, 10)
-@export var room_size = Vector3(4, 4, 4)
+@export var room_size = Vector3(6, 2.6, 6)
 @export_range(1, 100) var max_rooms: int = 20
 
 @export var room_scenes: Array[PackedScene] = []:
@@ -22,6 +22,7 @@ func generate():
 	
 	for room in rooms:
 		add_child(room)
+		room.create_room(room_size)
 
 func recursive_room_creation(current_room: GridRoom):
 	if rooms.size() >= max_rooms:
