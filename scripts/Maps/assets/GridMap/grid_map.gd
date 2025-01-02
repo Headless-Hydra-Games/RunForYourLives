@@ -18,6 +18,9 @@ extends Node
 var rooms: Array[GridRoom]
 
 func generate():
+	var starting_room = room_scenes[0].instantiate()
+	starting_room.connections[GridRoom.ConnectionType.CEILING] = GridRoom.ConnectionStatus.CLOSED
+	starting_room.connections[GridRoom.ConnectionType.FLOOR] = GridRoom.ConnectionStatus.CLOSED
 	rooms.append(room_scenes[0].instantiate())
 	recursive_room_creation(rooms[0])
 	
@@ -42,10 +45,10 @@ func recursive_room_creation(current_room: GridRoom):
 		rooms[room_index].CreateConnection(get_opposite_connection(connection), connection_index)
 		recursive_room_creation(rooms[get_rand_valid_room_index()])
 	else:
-		# if new position is not in bounds set connection to true so it will 
+		# if new position is not in bounds set connection to closed so it will 
 		# not register as a valid connection. Otherwise create new room
 		if !in_map_bounds(new_pos):
-			current_room.connections[connection] = true
+			current_room.connections[connection] = GridRoom.ConnectionStatus.CLOSED
 			recursive_room_creation(rooms[get_rand_valid_room_index()])
 		else:
 			# create new room
@@ -57,7 +60,7 @@ func recursive_room_creation(current_room: GridRoom):
 
 func has_open_connections(connections: Dictionary):
 	for connection in connections:
-		if !connections[connection]:
+		if connections[connection] == GridRoom.ConnectionStatus.OPEN:
 			return true
 
 func get_random_connection(connections: Array[GridRoom.ConnectionType]):
@@ -85,7 +88,7 @@ func get_random_connection(connections: Array[GridRoom.ConnectionType]):
 func get_valid_connections(connections: Dictionary):
 	var valid_connections: Array[GridRoom.ConnectionType]
 	for connection in connections:
-		if !connections[connection]:
+		if connections[connection] == GridRoom.ConnectionStatus.OPEN:
 			valid_connections.append(connection)
 	
 	return valid_connections

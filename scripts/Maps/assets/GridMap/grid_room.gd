@@ -5,6 +5,7 @@ class_name GridRoom
 
 enum Direction{NORTH, SOUTH, EAST, WEST}
 enum ConnectionType{NORTH_WALL, SOUTH_WALL, EAST_WALL, WEST_WALL, CEILING, FLOOR}
+enum ConnectionStatus{OPEN, CONNECTED, CLOSED}
 
 @export var floor_scenes: Array[PackedScene]:
 	set(v):
@@ -41,12 +42,12 @@ var east_wall_index = 0
 var west_wall_index = 0
 
 var connections = {
-	ConnectionType.NORTH_WALL: false,
-	ConnectionType.SOUTH_WALL: false,
-	ConnectionType.EAST_WALL: false,
-	ConnectionType.WEST_WALL: false,
-	ConnectionType.CEILING: false,
-	ConnectionType.FLOOR: false
+	ConnectionType.NORTH_WALL: ConnectionStatus.OPEN,
+	ConnectionType.SOUTH_WALL: ConnectionStatus.OPEN,
+	ConnectionType.EAST_WALL: ConnectionStatus.OPEN,
+	ConnectionType.WEST_WALL: ConnectionStatus.OPEN,
+	ConnectionType.CEILING: ConnectionStatus.OPEN,
+	ConnectionType.FLOOR: ConnectionStatus.OPEN
 }
 
 func create_room(room_size: Vector3):
@@ -88,7 +89,7 @@ func create_room(room_size: Vector3):
 	add_room_part(west_wall)
 
 func CreateConnection(type: ConnectionType, room_part_index: int):
-	connections[type] = true
+	connections[type] = ConnectionStatus.CONNECTED
 	match type:
 		ConnectionType.NORTH_WALL:
 			north_wall_index = room_part_index

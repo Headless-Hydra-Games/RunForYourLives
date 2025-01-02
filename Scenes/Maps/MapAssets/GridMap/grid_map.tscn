@@ -5,4 +5,3 @@
 [node name="GridMap" type="Node"]
 script = ExtResource("1_wxpna")
 room_size = Vector3(4, 4, 4)
-stair_occurrence = null
