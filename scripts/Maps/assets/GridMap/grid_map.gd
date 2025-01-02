@@ -4,6 +4,7 @@ extends Node
 @export var map_size = Vector3(10, 10, 10)
 @export var room_size = Vector3(6, 2.6, 6)
 @export_range(1, 100) var max_rooms: int = 20
+@export_range(0, 100) var stair_occurence: int = 10
 
 @export var room_scenes: Array[PackedScene] = []:
 	set(v):
@@ -28,7 +29,7 @@ func recursive_room_creation(current_room: GridRoom):
 	if rooms.size() >= max_rooms:
 		return
 	
-	var connection = get_rand_valid_connection(current_room.connections)
+	var connection = get_random_connection(get_valid_connections(current_room.connections))
 	var new_pos = update_pos(current_room.get_position(), connection)
 	
 	# check if room exists at position. 
@@ -58,14 +59,35 @@ func has_open_connections(connections: Dictionary):
 		if !connections[connection]:
 			return true
 
-func get_rand_valid_connection(connections: Dictionary):
+func get_random_connection(connections: Array[GridRoom.ConnectionType]):
+	var non_stair_connections: Array[GridRoom.ConnectionType]
+	var stair_connections: Array[GridRoom.ConnectionType]
+	
+	for connection in connections:
+		if connection == GridRoom.ConnectionType.FLOOR || connection == GridRoom.ConnectionType.CEILING:
+			stair_connections.append(connection)
+		else:
+			non_stair_connections.append(connection)
+	
+	var stair_connection_count = stair_connections.size()
+	var non_stair_connection_count = non_stair_connections.size()
+	
+	if stair_connection_count > 0:
+		if (randi() % 100) < stair_occurence || non_stair_connection_count == 0:
+			return stair_connections[randi() % stair_connection_count]
+	
+	if non_stair_connection_count > 0:
+		return non_stair_connections[randi() % non_stair_connection_count]
+	
+	return -1
+
+func get_valid_connections(connections: Dictionary):
 	var valid_connections: Array[GridRoom.ConnectionType]
 	for connection in connections:
 		if !connections[connection]:
 			valid_connections.append(connection)
-	var valid_count = valid_connections.size()
-	if valid_count > 0:
-		return valid_connections[randi() % valid_count]
+	
+	return valid_connections
 
 func get_rand_valid_room_index():
 	var valid_room_indices: Array[int]
