@@ -21,7 +21,7 @@ func generate():
 	var starting_room = room_scenes[0].instantiate()
 	starting_room.connections[GridRoom.ConnectionType.CEILING] = GridRoom.ConnectionStatus.CLOSED
 	starting_room.connections[GridRoom.ConnectionType.FLOOR] = GridRoom.ConnectionStatus.CLOSED
-	rooms.append(room_scenes[0].instantiate())
+	rooms.append(starting_room)
 	recursive_room_creation(rooms[0])
 	
 	for room in rooms:

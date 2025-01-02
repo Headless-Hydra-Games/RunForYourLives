@@ -3,7 +3,6 @@ extends Node3D
 
 class_name GridRoom
 
-enum Direction{NORTH, SOUTH, EAST, WEST}
 enum ConnectionType{NORTH_WALL, SOUTH_WALL, EAST_WALL, WEST_WALL, CEILING, FLOOR}
 enum ConnectionStatus{OPEN, CONNECTED, CLOSED}
 
