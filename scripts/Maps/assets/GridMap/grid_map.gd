@@ -4,7 +4,7 @@ extends Node
 @export var map_size = Vector3(10, 10, 10)
 @export var room_size = Vector3(6, 2.6, 6)
 @export_range(1, 100) var max_rooms: int = 20
-@export_range(0, 100) var stair_occurence: int = 10
+@export_range(0, 100) var stair_occurrence: int = 10
 
 @export var room_scenes: Array[PackedScene] = []:
 	set(v):
@@ -73,7 +73,7 @@ func get_random_connection(connections: Array[GridRoom.ConnectionType]):
 	var non_stair_connection_count = non_stair_connections.size()
 	
 	if stair_connection_count > 0:
-		if (randi() % 100) < stair_occurence || non_stair_connection_count == 0:
+		if (randi() % 100) < stair_occurrence || non_stair_connection_count == 0:
 			return stair_connections[randi() % stair_connection_count]
 	
 	if non_stair_connection_count > 0:

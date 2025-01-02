@@ -14,4 +14,5 @@ environment = ExtResource("2_k7fta")
 [node name="GridMap" parent="." instance=ExtResource("3_pud4n")]
 room_size = Vector3(6, 2.6, 6)
 max_rooms = 100
+stair_occurence = 10
 room_scenes = Array[PackedScene]([ExtResource("4_40ngt")])
