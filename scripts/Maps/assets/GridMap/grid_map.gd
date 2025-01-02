@@ -31,14 +31,15 @@ func recursive_room_creation(current_room: GridRoom):
 	
 	var connection = get_random_connection(get_valid_connections(current_room.connections))
 	var new_pos = update_pos(current_room.get_position(), connection)
+	var connection_index = current_room.get_rand_room_part_index(connection)
 	
 	# check if room exists at position. 
 	# if so add a connection to that room otherwise add a new room
 	var room_index = get_room_index_at(new_pos)
 	if room_index > -1:
 		# connect to room
-		current_room.CreateConnection(connection)
-		rooms[room_index].CreateConnection(get_opposite_connection(connection))
+		current_room.CreateConnection(connection, connection_index)
+		rooms[room_index].CreateConnection(get_opposite_connection(connection), connection_index)
 		recursive_room_creation(rooms[get_rand_valid_room_index()])
 	else:
 		# if new position is not in bounds set connection to true so it will 
@@ -49,8 +50,8 @@ func recursive_room_creation(current_room: GridRoom):
 		else:
 			# create new room
 			var new_room = create_new_room_at(new_pos)
-			current_room.CreateConnection(connection)
-			new_room.CreateConnection(get_opposite_connection(connection))
+			current_room.CreateConnection(connection, connection_index)
+			new_room.CreateConnection(get_opposite_connection(connection), connection_index)
 			rooms.append(new_room)
 			recursive_room_creation(new_room)
 
