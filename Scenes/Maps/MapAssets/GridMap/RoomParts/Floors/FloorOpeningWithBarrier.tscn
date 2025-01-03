@@ -1,0 +1,72 @@
+[gd_scene load_steps=13 format=3 uid="uid://djeu78eihidnx"]
+
+[ext_resource type="Script" path="res://scripts/Maps/assets/GridMap/RoomParts/floor.gd" id="1_uobs7"]
+[ext_resource type="PackedScene" uid="uid://c2cslqo802p7i" path="res://Scenes/Maps/MapAssets/static_collision_object.tscn" id="2_1eyxu"]
+[ext_resource type="Material" uid="uid://c81mdyqbiwf43" path="res://Scenes/Maps/MapAssets/Materials/FloorMaterial.tres" id="3_cecmu"]
+[ext_resource type="Material" uid="uid://dvajlfdixftrc" path="res://Scenes/Maps/MapAssets/Materials/ConcreteLayersMaterial.tres" id="4_2yalx"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_8spe2"]
+material = ExtResource("3_cecmu")
+size = Vector3(6, 0.1, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lnqos"]
+size = Vector3(6, 0.1, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_w7gks"]
+material = ExtResource("3_cecmu")
+size = Vector3(2, 0.1, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5ugh0"]
+size = Vector3(2, 0.1, 3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_0kylq"]
+material = ExtResource("4_2yalx")
+size = Vector3(2, 1, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ph0of"]
+size = Vector3(2, 1, 0.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_lowfx"]
+material = ExtResource("4_2yalx")
+size = Vector3(0.2, 1, 3.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hp42v"]
+size = Vector3(0.2, 1, 3.2)
+
+[node name="FloorOpening" type="Node3D"]
+script = ExtResource("1_uobs7")
+
+[node name="landing" parent="." instance=ExtResource("2_1eyxu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, -2.5)
+mesh = SubResource("BoxMesh_8spe2")
+collision_shape = SubResource("BoxShape3D_lnqos")
+
+[node name="landing2" parent="." instance=ExtResource("2_1eyxu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 2.5)
+mesh = SubResource("BoxMesh_8spe2")
+collision_shape = SubResource("BoxShape3D_lnqos")
+
+[node name="static_collision_object2" parent="." instance=ExtResource("2_1eyxu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.05, 0)
+mesh = SubResource("BoxMesh_w7gks")
+collision_shape = SubResource("BoxShape3D_5ugh0")
+
+[node name="static_collision_object3" parent="." instance=ExtResource("2_1eyxu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.05, 0)
+mesh = SubResource("BoxMesh_w7gks")
+collision_shape = SubResource("BoxShape3D_5ugh0")
+
+[node name="Back_barrier" parent="." instance=ExtResource("2_1eyxu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 1.6)
+mesh = SubResource("BoxMesh_0kylq")
+collision_shape = SubResource("BoxShape3D_ph0of")
+
+[node name="static_collision_object4" parent="." instance=ExtResource("2_1eyxu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 0.6, 0.1)
+mesh = SubResource("BoxMesh_lowfx")
+collision_shape = SubResource("BoxShape3D_hp42v")
+
+[node name="static_collision_object5" parent="." instance=ExtResource("2_1eyxu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, 0.6, 0.1)
+mesh = SubResource("BoxMesh_lowfx")
+collision_shape = SubResource("BoxShape3D_hp42v")

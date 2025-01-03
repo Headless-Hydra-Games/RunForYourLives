@@ -1,0 +1,20 @@
+[gd_scene load_steps=6 format=3 uid="uid://mvqbha3kb2ss"]
+
+[ext_resource type="PackedScene" uid="uid://c2cslqo802p7i" path="res://Scenes/Maps/MapAssets/static_collision_object.tscn" id="1_fxwdi"]
+[ext_resource type="Script" path="res://scripts/Maps/assets/GridMap/RoomParts/full_floor.gd" id="1_j5n7i"]
+[ext_resource type="Material" uid="uid://c81mdyqbiwf43" path="res://Scenes/Maps/MapAssets/Materials/FloorMaterial.tres" id="2_tg6k7"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_wtvsv"]
+material = ExtResource("2_tg6k7")
+size = Vector3(6, 0.1, 6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sgoi1"]
+size = Vector3(6, 0.1, 6)
+
+[node name="FullFloor" type="Node3D"]
+script = ExtResource("1_j5n7i")
+
+[node name="static_collision_object" parent="." instance=ExtResource("1_fxwdi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = SubResource("BoxMesh_wtvsv")
+collision_shape = SubResource("BoxShape3D_sgoi1")

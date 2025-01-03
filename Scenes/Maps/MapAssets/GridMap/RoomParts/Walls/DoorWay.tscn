@@ -1,0 +1,37 @@
+[gd_scene load_steps=8 format=3 uid="uid://ct33p4l3bojst"]
+
+[ext_resource type="Script" path="res://scripts/Maps/assets/GridMap/RoomParts/wall.gd" id="1_nukcy"]
+[ext_resource type="PackedScene" uid="uid://c2cslqo802p7i" path="res://Scenes/Maps/MapAssets/static_collision_object.tscn" id="2_axxhk"]
+[ext_resource type="Material" uid="uid://dvajlfdixftrc" path="res://Scenes/Maps/MapAssets/Materials/ConcreteLayersMaterial.tres" id="3_e3pq3"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_fwnif"]
+material = ExtResource("3_e3pq3")
+size = Vector3(2.5, 2, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6vrub"]
+size = Vector3(2.5, 2, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ihgm3"]
+material = ExtResource("3_e3pq3")
+size = Vector3(6, 0.6, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ecxtj"]
+size = Vector3(6, 0.6, 0.1)
+
+[node name="DoorWay" type="Node3D"]
+script = ExtResource("1_nukcy")
+
+[node name="static_collision_object2" parent="." instance=ExtResource("2_axxhk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 1, 0)
+mesh = SubResource("BoxMesh_fwnif")
+collision_shape = SubResource("BoxShape3D_6vrub")
+
+[node name="static_collision_object4" parent="." instance=ExtResource("2_axxhk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.75, 1, 0)
+mesh = SubResource("BoxMesh_fwnif")
+collision_shape = SubResource("BoxShape3D_6vrub")
+
+[node name="static_collision_object3" parent="." instance=ExtResource("2_axxhk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, 0)
+mesh = SubResource("BoxMesh_ihgm3")
+collision_shape = SubResource("BoxShape3D_ecxtj")
