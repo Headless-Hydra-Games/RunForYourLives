@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://crqk0jjgu5ip7"]
 
-[ext_resource type="Script" path="res://scripts/endless_stairs_2.gd" id="1_odrlf"]
+[ext_resource type="Script" path="res://scripts/Maps/endless_stairs_2.gd" id="1_odrlf"]
 [ext_resource type="PackedScene" uid="uid://bf2b7miq6udkr" path="res://Scenes/Maps/MapAssets/stairs.tscn" id="2_j01tr"]
 [ext_resource type="PackedScene" uid="uid://c2cslqo802p7i" path="res://Scenes/Maps/MapAssets/static_collision_object.tscn" id="3_5l1wj"]
 [ext_resource type="Material" uid="uid://dvajlfdixftrc" path="res://Scenes/Maps/MapAssets/Materials/ConcreteLayersMaterial.tres" id="4_14tv5"]

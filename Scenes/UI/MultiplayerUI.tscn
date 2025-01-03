@@ -1,0 +1,114 @@
+[gd_scene load_steps=5 format=3 uid="uid://dovbi8hlm5jwg"]
+
+[ext_resource type="Theme" uid="uid://bfh3g34gbyhq2" path="res://Themes/new_theme.tres" id="1_nhphl"]
+[ext_resource type="Script" path="res://scripts/UI/multiplayer_ui.gd" id="1_yfv6y"]
+[ext_resource type="PackedScene" uid="uid://cjrc8yygo7msc" path="res://Scenes/UI/ListView.tscn" id="2_lag6h"]
+
+[sub_resource type="Theme" id="Theme_phggm"]
+
+[node name="MultiplayerUI" type="AspectRatioContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_nhphl")
+script = ExtResource("1_yfv6y")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme = SubResource("Theme_phggm")
+
+[node name="MainMenu" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="PlayerNameTextEdit" type="TextEdit" parent="MarginContainer/MainMenu"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+placeholder_text = "Name"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MainMenu"]
+layout_mode = 2
+
+[node name="CreateBtn" type="Button" parent="MarginContainer/MainMenu/HBoxContainer"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+disabled = true
+text = "Create Game"
+
+[node name="FindBtn" type="Button" parent="MarginContainer/MainMenu/HBoxContainer"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+disabled = true
+text = "Find Server"
+
+[node name="ErrorLbl" type="Label" parent="MarginContainer/MainMenu"]
+layout_mode = 2
+
+[node name="ConnectedPlayers" type="VBoxContainer" parent="MarginContainer"]
+visible = false
+layout_mode = 2
+
+[node name="ServerAddressDisplayBox" type="HBoxContainer" parent="MarginContainer/ConnectedPlayers"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/ConnectedPlayers/ServerAddressDisplayBox"]
+layout_mode = 2
+text = "Server Address: "
+
+[node name="ServerAddressLabel" type="Label" parent="MarginContainer/ConnectedPlayers/ServerAddressDisplayBox"]
+layout_mode = 2
+
+[node name="ListView" parent="MarginContainer/ConnectedPlayers" instance=ExtResource("2_lag6h")]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/ConnectedPlayers"]
+layout_mode = 2
+
+[node name="ExitBtn" type="Button" parent="MarginContainer/ConnectedPlayers/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Exit"
+
+[node name="StartBtn" type="Button" parent="MarginContainer/ConnectedPlayers/HBoxContainer2"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+disabled = true
+text = "Start Game"
+
+[node name="ConnectToServer" type="VBoxContainer" parent="MarginContainer"]
+visible = false
+layout_mode = 2
+theme = ExtResource("1_nhphl")
+alignment = 1
+
+[node name="ServerAddressEdit" type="TextEdit" parent="MarginContainer/ConnectToServer"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/ConnectToServer"]
+layout_mode = 2
+
+[node name="BackBtn" type="Button" parent="MarginContainer/ConnectToServer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Back"
+
+[node name="ConnectBtn" type="Button" parent="MarginContainer/ConnectToServer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+disabled = true
+text = "Connect"
+
+[node name="ErrorLbl" type="Label" parent="MarginContainer/ConnectToServer"]
+layout_mode = 2
+
+[connection signal="text_changed" from="MarginContainer/MainMenu/PlayerNameTextEdit" to="." method="_on_player_name_text_edit_text_changed"]
+[connection signal="text_changed" from="MarginContainer/ConnectToServer/ServerAddressEdit" to="." method="_on_server_address_edit_text_changed"]

@@ -1,0 +1,15 @@
+[gd_scene load_steps=8 format=3 uid="uid://scgjh2e6ohwc"]
+
+[ext_resource type="Script" path="res://scripts/Maps/assets/GridMap/grid_room.gd" id="1_j2vwv"]
+[ext_resource type="PackedScene" uid="uid://mvqbha3kb2ss" path="res://Scenes/Maps/MapAssets/GridMap/RoomParts/Floors/FullFloor.tscn" id="2_umpb4"]
+[ext_resource type="PackedScene" uid="uid://xq48b4safrgt" path="res://Scenes/Maps/MapAssets/GridMap/RoomParts/Ceilings/FullCeiling.tscn" id="3_fmjou"]
+[ext_resource type="PackedScene" uid="uid://bcsxkcyu4th3v" path="res://Scenes/Maps/MapAssets/GridMap/RoomParts/Floors/FloorOpening.tscn" id="3_hyl2m"]
+[ext_resource type="PackedScene" uid="uid://bkuqwb7jwx5dr" path="res://Scenes/Maps/MapAssets/GridMap/RoomParts/Walls/FullWall.tscn" id="3_upk4o"]
+[ext_resource type="PackedScene" uid="uid://ct33p4l3bojst" path="res://Scenes/Maps/MapAssets/GridMap/RoomParts/Walls/DoorWay.tscn" id="5_5hesl"]
+[ext_resource type="PackedScene" uid="uid://c582h57dlcxmq" path="res://Scenes/Maps/MapAssets/GridMap/RoomParts/Ceilings/CeilingStairs.tscn" id="6_1g35s"]
+
+[node name="EmptyRoom" type="Node3D"]
+script = ExtResource("1_j2vwv")
+floor_scenes = Array[PackedScene]([ExtResource("2_umpb4"), ExtResource("3_hyl2m")])
+wall_scenes = Array[PackedScene]([ExtResource("3_upk4o"), ExtResource("5_5hesl"), null])
+ceiling_scenes = Array[PackedScene]([ExtResource("3_fmjou"), ExtResource("6_1g35s")])

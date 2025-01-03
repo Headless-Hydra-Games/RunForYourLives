@@ -1,0 +1,55 @@
+[gd_scene load_steps=10 format=3 uid="uid://c582h57dlcxmq"]
+
+[ext_resource type="Script" path="res://scripts/Maps/assets/GridMap/RoomParts/ceiling.gd" id="1_6u6ga"]
+[ext_resource type="PackedScene" uid="uid://c2cslqo802p7i" path="res://Scenes/Maps/MapAssets/static_collision_object.tscn" id="2_ysjb6"]
+[ext_resource type="Material" uid="uid://c5jubyg0gw0c0" path="res://Scenes/Maps/MapAssets/Materials/CeilingMaterial.tres" id="3_j7uwb"]
+[ext_resource type="PackedScene" uid="uid://jwj8i33hsyf8" path="res://Models/CorridorStairs.blend" id="4_xfokm"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_qkgij"]
+material = ExtResource("3_j7uwb")
+size = Vector3(6, 0.1, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_taea0"]
+size = Vector3(6, 0.1, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cj1ir"]
+material = ExtResource("3_j7uwb")
+size = Vector3(2, 0.1, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_q6njn"]
+size = Vector3(2, 0.1, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ejo5j"]
+size = Vector3(2, 0.5, 3.97)
+
+[node name="CeilingStairs" type="Node3D"]
+script = ExtResource("1_6u6ga")
+
+[node name="landing" parent="." instance=ExtResource("2_ysjb6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.55, -2.5)
+mesh = SubResource("BoxMesh_qkgij")
+collision_shape = SubResource("BoxShape3D_taea0")
+
+[node name="landing2" parent="." instance=ExtResource("2_ysjb6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.55, 2.5)
+mesh = SubResource("BoxMesh_qkgij")
+collision_shape = SubResource("BoxShape3D_taea0")
+
+[node name="static_collision_object2" parent="." instance=ExtResource("2_ysjb6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2.55, 0)
+mesh = SubResource("BoxMesh_cj1ir")
+collision_shape = SubResource("BoxShape3D_q6njn")
+
+[node name="static_collision_object3" parent="." instance=ExtResource("2_ysjb6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2.55, 0)
+mesh = SubResource("BoxMesh_cj1ir")
+collision_shape = SubResource("BoxShape3D_q6njn")
+
+[node name="stairs" type="Node3D" parent="."]
+
+[node name="lower_ramp" parent="stairs" instance=ExtResource("2_ysjb6")]
+transform = Transform3D(1, 0, 0, 0, 0.755854, -0.654741, 0, 0.654741, 0.755854, 0, 1.21, -0.140999)
+collision_shape = SubResource("BoxShape3D_ejo5j")
+
+[node name="CorridorStairs" parent="." instance=ExtResource("4_xfokm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
