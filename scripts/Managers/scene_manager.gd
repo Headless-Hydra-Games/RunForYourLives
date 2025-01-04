@@ -23,7 +23,10 @@ func _ready():
 func start_game():
 	if multiplayer.get_remote_sender_id() == 1:
 		level = level_scene.instantiate()
+		level.client_count = $MultiplayerManager.player_list.size()
 		add_child(level)
+		while(level.is_loading()):
+			pass
 		spawn_player.rpc($MultiplayerManager.player_info)
 		#level.label.text = "Player: " + $MultiplayerManager.player_info[$MultiplayerManager.player_attribute.NAME] 
 		$MultiplayerManager.close_menu()

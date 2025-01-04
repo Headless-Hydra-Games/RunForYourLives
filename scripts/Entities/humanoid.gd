@@ -1,4 +1,4 @@
-class_name Humanoid extends Entity
+class_name humanoid extends Entity
 
 const RAY_LENGTH = 50
 
@@ -22,14 +22,14 @@ var idol_anim_id: int
 signal on_move(position: Vector3)
 
 func _ready():
+	if !multiplayer.is_server():
+		return
 	walking_anim_id = state_machine.append_state("Walking")
 	idol_anim_id = state_machine.append_state("Idol")
 
 func _physics_process(delta):
-	var space_state = get_world_3d().direct_space_state
-	var query = PhysicsRayQueryParameters3D.create(global_position, player_position)
-	query.exclude([self])
-	var result = space_state.intersect_ray(query)
+	if !multiplayer.is_server():
+		return
 	# account for gravity
 	if !is_on_floor():
 		target_velocity.y = clamp(target_velocity.y - fall_acceleration * delta, -terminal_velocity, jump_acceleration)
@@ -59,3 +59,13 @@ func playAnimation(animation_id: int):
 @rpc("call_local")
 func stopAnimation():
 	state_machine.stop()
+
+@rpc("call_local", "any_peer", "reliable")
+func on_player_move(pos: Vector3):
+	var space_state = get_world_3d().direct_space_state
+	var query = PhysicsRayQueryParameters3D.create(global_position, pos)
+	query.exclude = [self]
+	var result = space_state.intersect_ray(query)
+	if result:
+		if result.collider:
+			print("Colliding with %s" % result.collider.name)

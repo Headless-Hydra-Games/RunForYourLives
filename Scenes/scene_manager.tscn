@@ -9,7 +9,7 @@ script = ExtResource("1_0jga4")
 level_scene = ExtResource("2_6i7ny")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://Scenes/Entities/player.tscn")
+_spawnable_scenes = PackedStringArray("res://Scenes/Entities/player.tscn", "res://Scenes/Entities/Humanoid.tscn")
 spawn_path = NodePath("..")
 
 [node name="MultiplayerManager" parent="." instance=ExtResource("3_llpux")]
