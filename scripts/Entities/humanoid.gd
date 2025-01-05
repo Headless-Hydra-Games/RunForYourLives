@@ -1,6 +1,6 @@
 class_name humanoid extends Entity
 
-const RAY_LENGTH = 50
+const VIEW_DISTANCE = 5
 
 @export var walk_speed = 5.0
 @export var run_speed = 10.0
@@ -18,6 +18,9 @@ var running = false
 
 var walking_anim_id: int
 var idol_anim_id: int
+
+var pursue = false
+var move_to: Vector3
 
 signal on_move(position: Vector3)
 
@@ -37,12 +40,13 @@ func _physics_process(delta):
 		var move_speed = run_speed if running else walk_speed
 		if target_velocity.y < 0:
 			target_velocity.y = 0
-		var direction = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
-		var forward = pivot.global_basis * Vector3(direction.x, 0, direction.y)
+		
+		pursue = pivot.global_position.distance_to(move_to) > .5
+		if move_to.x != position.x || move_to.z != position.z:
+			pivot.look_at(Vector3(move_to.x, position.y, move_to.z))
+		var forward = pivot.global_basis * (Vector3.FORWARD if pursue else Vector3())
 		var move_dir = forward.normalized()
-		target_velocity = target_velocity.move_toward(move_dir * move_speed * direction.length(), move_acceleration * delta)
-		if Input.is_action_pressed("jump"):
-			target_velocity.y += jump_acceleration
+		target_velocity = target_velocity.move_toward(move_dir * move_speed, move_acceleration * delta)
 	
 	if target_velocity != Vector3.ZERO:
 		velocity = target_velocity
@@ -62,10 +66,13 @@ func stopAnimation():
 
 @rpc("call_local", "any_peer", "reliable")
 func on_player_move(pos: Vector3):
-	var space_state = get_world_3d().direct_space_state
-	var query = PhysicsRayQueryParameters3D.create(global_position, pos)
-	query.exclude = [self]
-	var result = space_state.intersect_ray(query)
-	if result:
-		if result.collider:
-			print("Colliding with %s" % result.collider.name)
+	var direction_vector = pivot.global_position.direction_to(pos)
+	if direction_vector.dot(pivot.global_basis * Vector3.FORWARD) > 0 && pivot.global_position.distance_to(pos) < VIEW_DISTANCE:
+		var space_state = get_world_3d().direct_space_state
+		var query = PhysicsRayQueryParameters3D.create(global_position, pos)
+		query.exclude = [self]
+		var result = space_state.intersect_ray(query)
+		if result:
+			if result.collider is Player:
+				move_to = result.collider.global_position
+				pursue = true
