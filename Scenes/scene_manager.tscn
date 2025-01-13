@@ -1,15 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://csvo6lu3pq6wl"]
 
 [ext_resource type="Script" path="res://scripts/Managers/scene_manager.gd" id="1_0jga4"]
-[ext_resource type="PackedScene" uid="uid://brceokpigpkt" path="res://Scenes/Maps/corridors.tscn" id="2_6i7ny"]
+[ext_resource type="PackedScene" uid="uid://brceokpigpkt" path="res://Scenes/Maps/corridors.tscn" id="2_b3ay0"]
 [ext_resource type="PackedScene" uid="uid://cey20caxrhw3n" path="res://Scenes/Networking/multiplayer_manager.tscn" id="3_llpux"]
 
 [node name="SceneManager" type="Node"]
 script = ExtResource("1_0jga4")
-level_scene = ExtResource("2_6i7ny")
-
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://Scenes/Entities/player.tscn", "res://Scenes/Entities/Humanoid.tscn")
-spawn_path = NodePath("..")
+level_scene = ExtResource("2_b3ay0")
 
 [node name="MultiplayerManager" parent="." instance=ExtResource("3_llpux")]
+
+[connection signal="disconnected_from_server" from="MultiplayerManager" to="." method="_on_multiplayer_manager_disconnected_from_server"]

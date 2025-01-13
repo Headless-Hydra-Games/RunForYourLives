@@ -1,6 +1,6 @@
 class_name humanoid extends Entity
 
-const VIEW_DISTANCE = 5
+const VIEW_DISTANCE = 8
 
 @export var walk_speed = 5.0
 @export var run_speed = 10.0
@@ -9,6 +9,7 @@ const VIEW_DISTANCE = 5
 @export var fall_acceleration = 9.8
 @export var terminal_velocity = 53
 
+@onready var nav_agent = $NavigationAgent3D
 @onready var pivot = $Pivot
 @onready var mesh = $Pivot/Human
 @onready var state_machine := StateMachine.new($Pivot/Human/AnimationPlayer)
@@ -18,9 +19,6 @@ var running = false
 
 var walking_anim_id: int
 var idol_anim_id: int
-
-var pursue = false
-var move_to: Vector3
 
 signal on_move(position: Vector3)
 
@@ -41,10 +39,9 @@ func _physics_process(delta):
 		if target_velocity.y < 0:
 			target_velocity.y = 0
 		
-		pursue = pivot.global_position.distance_to(move_to) > .5
-		if move_to.x != position.x || move_to.z != position.z:
-			pivot.look_at(Vector3(move_to.x, position.y, move_to.z))
-		var forward = pivot.global_basis * (Vector3.FORWARD if pursue else Vector3())
+		if nav_agent.target_position.x != position.x || nav_agent.target_position.z != position.z:
+			pivot.look_at(Vector3(nav_agent.target_position.x, position.y, nav_agent.target_position.z))
+		var forward = Vector3() if nav_agent.is_navigation_finished() else nav_agent.get_next_path_position() - global_position
 		var move_dir = forward.normalized()
 		target_velocity = target_velocity.move_toward(move_dir * move_speed, move_acceleration * delta)
 	
@@ -66,13 +63,17 @@ func stopAnimation():
 
 @rpc("call_local", "any_peer", "reliable")
 func on_player_move(pos: Vector3):
+	# Get direction relative to self
 	var direction_vector = pivot.global_position.direction_to(pos)
-	if direction_vector.dot(pivot.global_basis * Vector3.FORWARD) > 0 && pivot.global_position.distance_to(pos) < VIEW_DISTANCE:
+	
+	# Check if player is within vision
+	if direction_vector.dot(pivot.global_basis * Vector3.FORWARD) > 0 && \
+	pivot.global_position.distance_to(pos) < VIEW_DISTANCE:
+		# Check if obstacles are obscuring player
 		var space_state = get_world_3d().direct_space_state
 		var query = PhysicsRayQueryParameters3D.create(global_position, pos)
 		query.exclude = [self]
 		var result = space_state.intersect_ray(query)
 		if result:
 			if result.collider is Player:
-				move_to = result.collider.global_position
-				pursue = true
+				nav_agent.target_position = result.collider.global_position

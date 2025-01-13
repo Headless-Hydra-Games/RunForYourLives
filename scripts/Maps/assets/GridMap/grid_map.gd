@@ -116,7 +116,7 @@ func recursive_room_creation(current_room: RoomMsg, room_msgs: Array[RoomMsg]):
 			room_msgs.append(new_room)
 			next_room = new_room
 			if randi() % 100 < enemy_spawn_rate:
-				get_parent().spawn_enemy(0, new_pos)
+				get_parent().get_parent().spawn_enemy(0, new_pos)
 	recursive_room_creation(next_room, room_msgs)
 
 func has_open_connections(connections: Dictionary):

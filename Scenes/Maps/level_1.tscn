@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://c3uy60244e7yb"]
 
 [ext_resource type="PackedScene" uid="uid://c2cslqo802p7i" path="res://Scenes/Maps/MapAssets/static_collision_object.tscn" id="1_773p2"]
-[ext_resource type="Script" path="res://Scenes/Maps/level_1.gd" id="1_th617"]
+[ext_resource type="Script" path="res://scripts/Maps/level_1.gd" id="1_th617"]
 [ext_resource type="BoxMesh" uid="uid://c8s8abtdrgr1y" path="res://Scenes/Maps/MapAssets/Wall_10x2.75.tres" id="2_op8eu"]
 [ext_resource type="Shape3D" uid="uid://cum6xk1v2wi75" path="res://Scenes/Maps/MapAssets/Wall_Collision_10x2.75.tres" id="3_1crxr"]
 [ext_resource type="BoxMesh" uid="uid://beyqlovywqg0l" path="res://Scenes/Maps/MapAssets/Wall_16.2x2.75.tres" id="4_818lj"]

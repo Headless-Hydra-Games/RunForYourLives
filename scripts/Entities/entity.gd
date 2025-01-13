@@ -6,6 +6,15 @@ func _enter_tree():
 	if self is Player:
 		set_multiplayer_authority(str(name).to_int())
 	
-	for child in get_parent().get_children():
-		if child is Level:
-			child.register_entity(self)
+	var level = find_level()
+	if level:
+		level.register_entity(self)
+
+func find_level():
+	var parent = get_parent()
+	while parent != get_tree().root:
+		if parent is Level:
+			return parent
+		else:
+			parent = parent.get_parent()
+	return null

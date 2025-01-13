@@ -1,15 +1,9 @@
 extends Level
 
-@onready var grid_map = $NavigationRegion3D/GridMap
-
 var enemies: Array[Entity] = []
 
 func setup_level():
-	loading = true
-	grid_map.client_count = client_count
-	grid_map.generate()
-	nav_region.bake_navigation_mesh()
-	loading = false
+	spawn_enemy(0, Vector3(0,1,7))
 
 # override register_enitity
 func register_entity(entity: Entity):

@@ -1,11 +1,16 @@
-[gd_scene load_steps=14 format=3 uid="uid://bbpdfr5lrf7d4"]
+[gd_scene load_steps=16 format=3 uid="uid://bbpdfr5lrf7d4"]
 
 [ext_resource type="PackedScene" uid="uid://c2cslqo802p7i" path="res://Scenes/Maps/MapAssets/static_collision_object.tscn" id="1_m6deb"]
-[ext_resource type="Script" path="res://Scenes/Maps/test_scene.gd" id="1_ok7n5"]
+[ext_resource type="Script" path="res://scripts/Maps/test_scene.gd" id="1_ok7n5"]
 [ext_resource type="Environment" uid="uid://1v64rcf2lewr" path="res://Scenes/Maps/MapAssets/WorldEnvironments/DarkRoomEnvironment.tres" id="2_5g4j7"]
 [ext_resource type="Material" uid="uid://c81mdyqbiwf43" path="res://Scenes/Maps/MapAssets/Materials/FloorMaterial.tres" id="2_vxhj6"]
 [ext_resource type="Material" uid="uid://dvajlfdixftrc" path="res://Scenes/Maps/MapAssets/Materials/ConcreteLayersMaterial.tres" id="3_gqbx1"]
 [ext_resource type="Material" uid="uid://c5jubyg0gw0c0" path="res://Scenes/Maps/MapAssets/Materials/CeilingMaterial.tres" id="5_44rnc"]
+[ext_resource type="PackedScene" uid="uid://dcevssemu74ys" path="res://Scenes/Entities/Humanoid.tscn" id="7_u0c2a"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_6nswm"]
+vertices = PackedVector3Array(-2.75, 0.5, -7, -1.25, 0.5, -7, -1.5, 0.5, -49.25, -3, 0.5, -6.5, -49.25, 0.5, -49.25, -49.25, 0.5, -6.5, 1.25, 0.5, -7, 1.5, 0.5, -49.25, 2.75, 0.5, -7, 3, 0.5, -6.5, 49.25, 0.5, -6.5, 49.25, 0.5, -49.25, -3, 0.5, -2.75, -2.25, 0.5, -3, -2.25, 0.5, -5.75, -3, 0.5, -6, -49.25, 0.5, -1.5, -3, 0.5, -1.25, 2.75, 0.5, -5.75, 2.25, 0.5, -5.75, 2.25, 0.5, -3, 3, 0.5, -2.75, 49.25, 0.5, -1.5, 3, 0.5, -1.25, -1.75, 0.5, -2.75, 1.75, 0.5, -2.75, -1.75, 0.5, 1.75, 1.75, 0.5, 1.75, -49.25, 0.5, 1.5, -3, 0.5, 1.25, 3, 0.5, 1.25, 49.25, 0.5, 1.5, -3, 0.5, 2.75, -1.5, 0.5, 49.25, -1.25, 0.5, 3, -49.25, 0.5, 49.25, 2.75, 0.5, 3, 1.25, 0.5, 3, 1.5, 0.5, 49.25, 49.25, 0.5, 49.25)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(0, 3, 2), PackedInt32Array(2, 3, 5), PackedInt32Array(2, 5, 4), PackedInt32Array(1, 2, 6), PackedInt32Array(6, 2, 7), PackedInt32Array(8, 6, 7), PackedInt32Array(8, 7, 9), PackedInt32Array(9, 7, 10), PackedInt32Array(10, 7, 11), PackedInt32Array(13, 12, 14), PackedInt32Array(14, 12, 15), PackedInt32Array(15, 12, 5), PackedInt32Array(5, 12, 16), PackedInt32Array(12, 17, 16), PackedInt32Array(5, 3, 15), PackedInt32Array(20, 19, 18), PackedInt32Array(20, 18, 21), PackedInt32Array(21, 18, 9), PackedInt32Array(21, 9, 10), PackedInt32Array(21, 10, 22), PackedInt32Array(22, 23, 21), PackedInt32Array(13, 14, 24), PackedInt32Array(24, 14, 25), PackedInt32Array(25, 14, 20), PackedInt32Array(20, 14, 19), PackedInt32Array(25, 27, 24), PackedInt32Array(24, 27, 26), PackedInt32Array(29, 28, 17), PackedInt32Array(17, 28, 16), PackedInt32Array(23, 22, 30), PackedInt32Array(30, 22, 31), PackedInt32Array(28, 29, 32), PackedInt32Array(34, 33, 32), PackedInt32Array(32, 33, 35), PackedInt32Array(32, 35, 28), PackedInt32Array(38, 37, 36), PackedInt32Array(30, 31, 36), PackedInt32Array(36, 31, 39), PackedInt32Array(36, 39, 38), PackedInt32Array(34, 37, 33), PackedInt32Array(33, 37, 38)]
 
 [sub_resource type="QuadMesh" id="QuadMesh_cmvv7"]
 lightmap_size_hint = Vector2i(502, 502)
@@ -38,58 +43,63 @@ center_offset = Vector3(0, 0, 0.05)
 [sub_resource type="BoxShape3D" id="BoxShape3D_26mvl"]
 size = Vector3(5, 2.5, 0.1)
 
-[node name="TestScene" type="Node3D"]
+[node name="TestScene" type="Node3D" node_paths=PackedStringArray("nav_region")]
 script = ExtResource("1_ok7n5")
+enemy_scenes = Array[PackedScene]([ExtResource("7_u0c2a")])
+nav_region = NodePath("NavigationRegion3D")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("2_5g4j7")
 
-[node name="Floor" parent="." instance=ExtResource("1_m6deb")]
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_6nswm")
+
+[node name="Floor" parent="NavigationRegion3D" instance=ExtResource("1_m6deb")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 mesh = SubResource("QuadMesh_cmvv7")
 collision_shape = SubResource("BoxShape3D_ng5um")
 
-[node name="Ceiling" parent="." instance=ExtResource("1_m6deb")]
+[node name="Ceiling" parent="NavigationRegion3D" instance=ExtResource("1_m6deb")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 2.5, 0)
 mesh = SubResource("QuadMesh_rvmvi")
 collision_shape = SubResource("BoxShape3D_ng5um")
 
-[node name="Outerwall1" parent="." instance=ExtResource("1_m6deb")]
+[node name="Outerwall1" parent="NavigationRegion3D" instance=ExtResource("1_m6deb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, -50)
 mesh = SubResource("QuadMesh_dlhy1")
 collision_shape = SubResource("BoxShape3D_2e2o7")
 
-[node name="Outerwall2" parent="." instance=ExtResource("1_m6deb")]
+[node name="Outerwall2" parent="NavigationRegion3D" instance=ExtResource("1_m6deb")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -50, 1.25, 0)
 mesh = SubResource("QuadMesh_dlhy1")
 collision_shape = SubResource("BoxShape3D_2e2o7")
 
-[node name="Outerwall3" parent="." instance=ExtResource("1_m6deb")]
+[node name="Outerwall3" parent="NavigationRegion3D" instance=ExtResource("1_m6deb")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 50, 1.25, 0)
 mesh = SubResource("QuadMesh_dlhy1")
 collision_shape = SubResource("BoxShape3D_2e2o7")
 
-[node name="Outerwall4" parent="." instance=ExtResource("1_m6deb")]
+[node name="Outerwall4" parent="NavigationRegion3D" instance=ExtResource("1_m6deb")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.25, 50)
 mesh = SubResource("QuadMesh_dlhy1")
 collision_shape = SubResource("BoxShape3D_2e2o7")
 
-[node name="Wall" parent="." instance=ExtResource("1_m6deb")]
+[node name="Wall" parent="NavigationRegion3D" instance=ExtResource("1_m6deb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, -6.47448)
 mesh = SubResource("QuadMesh_n2lin")
 collision_shape = SubResource("BoxShape3D_26mvl")
 
-[node name="Wall2" parent="." instance=ExtResource("1_m6deb")]
+[node name="Wall2" parent="NavigationRegion3D" instance=ExtResource("1_m6deb")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.5, 1.25, 0)
 mesh = SubResource("QuadMesh_n2lin")
 collision_shape = SubResource("BoxShape3D_26mvl")
 
-[node name="Wall3" parent="." instance=ExtResource("1_m6deb")]
+[node name="Wall3" parent="NavigationRegion3D" instance=ExtResource("1_m6deb")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.5, 1.25, 0)
 mesh = SubResource("QuadMesh_n2lin")
 collision_shape = SubResource("BoxShape3D_26mvl")
 
-[node name="Wall4" parent="." instance=ExtResource("1_m6deb")]
+[node name="Wall4" parent="NavigationRegion3D" instance=ExtResource("1_m6deb")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.25, 2.5)
 mesh = SubResource("QuadMesh_n2lin")
 collision_shape = SubResource("BoxShape3D_26mvl")
