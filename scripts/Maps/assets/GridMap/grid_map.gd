@@ -19,6 +19,8 @@ class RoomMsg:
 		GridRoom.ConnectionType.FLOOR: [GridRoom.ConnectionStatus.OPEN, 0]
 	}
 
+@export var root_node: Node = self
+
 @export var map_size = Vector3(10, 10, 10)
 @export var room_size = Vector3(6, 2.6, 6)
 @export_range(1, 100) var max_rooms: int = 20
@@ -35,14 +37,14 @@ class RoomMsg:
 		room_scenes = v
 
 var client_respones: int = 0
-var client_count: int
 
-func generate():
+func generate(client_count: int):
 	if multiplayer.is_server():
 		var room_msgs = generate_rooms()
+		var responses_needed = room_msgs.size() * client_count
 		for msg in room_msgs:
 			SendRoomMsg(msg)
-		while client_respones < (room_msgs.size() * client_count):
+		while client_respones < responses_needed:
 			await get_tree().create_timer(1).timeout
 
 func SendRoomMsg(msg: RoomMsg):
@@ -66,7 +68,7 @@ func create_room(data: Dictionary):
 			else:
 				room.connections[connection] = data[connection][0]
 		room.create_room(room_size)
-		add_child(room)
+		root_node.add_child(room)
 		create_room_response.rpc()
 
 @rpc("call_local", "any_peer")
@@ -116,7 +118,7 @@ func recursive_room_creation(current_room: RoomMsg, room_msgs: Array[RoomMsg]):
 			room_msgs.append(new_room)
 			next_room = new_room
 			if randi() % 100 < enemy_spawn_rate:
-				get_parent().get_parent().spawn_enemy(0, new_pos)
+				get_parent().spawn_enemy(0, new_pos)
 	recursive_room_creation(next_room, room_msgs)
 
 func has_open_connections(connections: Dictionary):

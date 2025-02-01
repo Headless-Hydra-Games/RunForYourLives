@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/Maps/assets/GridMap/grid_map.gd" id="1_wxpna"]
 
-[node name="GridMap" type="Node"]
+[node name="GridMap" type="Node" node_paths=PackedStringArray("root_node")]
 script = ExtResource("1_wxpna")
+root_node = NodePath(".")
 room_size = Vector3(4, 4, 4)

@@ -27,6 +27,16 @@ func _ready():
 		return
 	walking_anim_id = state_machine.append_state("Walking")
 	idol_anim_id = state_machine.append_state("Idol")
+	
+	# Disable default navigation layer
+	nav_agent.set_navigation_layer_value(1, false)
+	
+	# Set navigation layer based on size
+	nav_agent.set_navigation_layer_value(size_category, true)
+	
+	print("Agent nav layer %d" % nav_agent.navigation_layers)
+	
+	nav_agent.set_navigation_map(NavigationServer3D.get_maps()[0])
 
 func _physics_process(delta):
 	if !multiplayer.is_server():

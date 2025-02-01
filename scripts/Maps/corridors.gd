@@ -1,14 +1,14 @@
 extends Level
 
-@onready var grid_map = $NavigationRegion3D/GridMap
+@onready var grid_map = $GridMap
 
 var enemies: Array[Entity] = []
 
-func setup_level():
+func _ready():
+	super._ready()
 	loading = true
-	grid_map.client_count = client_count
-	grid_map.generate()
-	nav_region.bake_navigation_mesh()
+	grid_map.generate(client_count)
+	create_navigation_regions()
 	loading = false
 
 # override register_enitity

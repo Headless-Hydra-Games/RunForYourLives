@@ -2,8 +2,10 @@ extends Level
 
 var enemies: Array[Entity] = []
 
-func setup_level():
+func _ready():
+	super._ready()
 	spawn_enemy(0, Vector3(0,1,7))
+	create_navigation_regions()
 
 # override register_enitity
 func register_entity(entity: Entity):
