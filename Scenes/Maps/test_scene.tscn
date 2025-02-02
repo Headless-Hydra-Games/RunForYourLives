@@ -6,7 +6,7 @@
 [ext_resource type="Material" uid="uid://c81mdyqbiwf43" path="res://Scenes/Maps/MapAssets/Materials/FloorMaterial.tres" id="2_vxhj6"]
 [ext_resource type="Material" uid="uid://dvajlfdixftrc" path="res://Scenes/Maps/MapAssets/Materials/ConcreteLayersMaterial.tres" id="3_gqbx1"]
 [ext_resource type="Material" uid="uid://c5jubyg0gw0c0" path="res://Scenes/Maps/MapAssets/Materials/CeilingMaterial.tres" id="5_44rnc"]
-[ext_resource type="PackedScene" uid="uid://dcevssemu74ys" path="res://Scenes/Entities/Humanoid.tscn" id="7_u0c2a"]
+[ext_resource type="PackedScene" path="res://Scenes/Entities/Humanoid.tscn" id="7_u0c2a"]
 [ext_resource type="PackedScene" uid="uid://ct33p4l3bojst" path="res://Scenes/Maps/MapAssets/GridMap/RoomParts/Walls/DoorWay.tscn" id="8_o4g1c"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_rvmvi"]

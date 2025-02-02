@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://cm715mdow4p42"]
 
-[ext_resource type="Script" path="res://scripts/Maps/level.gd" id="1_5hxjp"]
+[ext_resource type="Script" path="res://scripts/Maps/blizzard.gd" id="1_aqv3i"]
 [ext_resource type="PackedScene" uid="uid://c2cslqo802p7i" path="res://Scenes/Maps/MapAssets/static_collision_object.tscn" id="2_c5c5h"]
 [ext_resource type="Shader" path="res://Scenes/Maps/SnowDisplacement.gdshader" id="3_oegdy"]
 [ext_resource type="Environment" uid="uid://1v64rcf2lewr" path="res://Scenes/Maps/MapAssets/WorldEnvironments/DarkRoomEnvironment.tres" id="4_q5pxk"]
@@ -40,7 +40,7 @@ subdivide_width = 32
 subdivide_depth = 32
 
 [node name="Blizzard" type="Node3D"]
-script = ExtResource("1_5hxjp")
+script = ExtResource("1_aqv3i")
 
 [node name="static_collision_object" parent="." instance=ExtResource("2_c5c5h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
