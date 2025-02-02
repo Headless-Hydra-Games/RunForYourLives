@@ -1,0 +1,59 @@
+[gd_scene load_steps=13 format=3 uid="uid://cm715mdow4p42"]
+
+[ext_resource type="Script" path="res://scripts/Maps/level.gd" id="1_5hxjp"]
+[ext_resource type="PackedScene" uid="uid://c2cslqo802p7i" path="res://Scenes/Maps/MapAssets/static_collision_object.tscn" id="2_c5c5h"]
+[ext_resource type="Shader" path="res://Scenes/Maps/SnowDisplacement.gdshader" id="3_oegdy"]
+[ext_resource type="Environment" uid="uid://1v64rcf2lewr" path="res://Scenes/Maps/MapAssets/WorldEnvironments/DarkRoomEnvironment.tres" id="4_q5pxk"]
+[ext_resource type="Texture2D" uid="uid://8au0ad3rxuso" path="res://Scenes/Maps/MapAssets/Shaders/snow_displacement_texture.tres" id="4_yln6v"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ai8c6"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pu8an"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="Gradient" id="Gradient_jrn8e"]
+colors = PackedColorArray(0.703808, 0.703808, 0.703808, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_82tbl"]
+seed = 65
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ntxns"]
+as_normal_map = true
+color_ramp = SubResource("Gradient_jrn8e")
+noise = SubResource("FastNoiseLite_82tbl")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ppxx4"]
+render_priority = 0
+shader = ExtResource("3_oegdy")
+shader_parameter/mesh_size = 100
+shader_parameter/height_scale = 0.5
+shader_parameter/color = Vector3(0.6, 0.7, 0.8)
+shader_parameter/specular = 0.8
+shader_parameter/displacement = ExtResource("4_yln6v")
+shader_parameter/normal_map = SubResource("NoiseTexture2D_ntxns")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_qdkl8"]
+material = SubResource("ShaderMaterial_ppxx4")
+size = Vector2(100, 100)
+subdivide_width = 32
+subdivide_depth = 32
+
+[node name="Blizzard" type="Node3D"]
+script = ExtResource("1_5hxjp")
+
+[node name="static_collision_object" parent="." instance=ExtResource("2_c5c5h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+mesh = SubResource("BoxMesh_ai8c6")
+collision_shape = SubResource("BoxShape3D_pu8an")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_qdkl8")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("4_q5pxk")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.482835, -0.312576, -0.818026, -0.867275, 0.0413317, 0.496111, -0.121262, 0.948993, -0.291046, 0, 6.11978, 0)
+light_color = Color(0.891109, 0.99969, 1, 1)
+shadow_enabled = true
