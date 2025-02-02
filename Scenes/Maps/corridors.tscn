@@ -1,18 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://brceokpigpkt"]
+[gd_scene load_steps=6 format=3 uid="uid://brceokpigpkt"]
 
 [ext_resource type="Script" path="res://scripts/Maps/corridors.gd" id="1_wvvxg"]
+[ext_resource type="PackedScene" uid="uid://dcevssemu74ys" path="res://Scenes/Entities/Humanoid.tscn" id="2_34xr1"]
 [ext_resource type="Environment" uid="uid://1v64rcf2lewr" path="res://Scenes/Maps/MapAssets/WorldEnvironments/DarkRoomEnvironment.tres" id="2_k7fta"]
 [ext_resource type="PackedScene" uid="uid://b8c2niw261b7w" path="res://Scenes/Maps/MapAssets/GridMap/grid_map.tscn" id="3_pud4n"]
 [ext_resource type="PackedScene" uid="uid://scgjh2e6ohwc" path="res://Scenes/Maps/MapAssets/GridMap/Rooms/EmptyRoom.tscn" id="4_40ngt"]
 
-[node name="Corridors" type="Node3D"]
+[node name="Corridors" type="Node3D" node_paths=PackedStringArray("nav_mesh_geometry_node")]
 script = ExtResource("1_wvvxg")
+enemy_scenes = Array[PackedScene]([ExtResource("2_34xr1")])
+nav_mesh_geometry_node = NodePath("NavRegion")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("2_k7fta")
 
-[node name="GridMap" parent="." instance=ExtResource("3_pud4n")]
-room_size = Vector3(6, 2.6, 6)
+[node name="GridMap" parent="." node_paths=PackedStringArray("root_node") instance=ExtResource("3_pud4n")]
+root_node = NodePath("../NavRegion")
+room_size = Vector3(6, 2.8, 6)
 max_rooms = 100
-stair_occurrence = 10
 room_scenes = Array[PackedScene]([ExtResource("4_40ngt")])
+
+[node name="NavRegion" type="Node" parent="."]

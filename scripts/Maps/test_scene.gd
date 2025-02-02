@@ -1,15 +1,11 @@
 extends Level
 
-@onready var grid_map = $GridMap
-
 var enemies: Array[Entity] = []
 
 func _ready():
 	super._ready()
-	loading = true
-	grid_map.generate(client_count)
+	spawn_enemy(0, Vector3(0,1,7))
 	create_navigation_regions()
-	loading = false
 
 # override register_enitity
 func register_entity(entity: Entity):

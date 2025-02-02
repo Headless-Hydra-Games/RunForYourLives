@@ -13,6 +13,7 @@ var player_list: Array[Dictionary]
 
 #signal player_connected(peer_id: int, player_name: String)
 signal player_disconnected(peer_id: int)
+signal disconnected_from_server()
 
 func _ready():
 	$MultiplayerUI.createBtn.pressed.connect(create_server)
@@ -63,7 +64,7 @@ func connected(peer_id: int):
 func remove_player(peer_id: int):
 	player_disconnected.emit(peer_id)
 	if multiplayer.get_peers().is_empty():
-		$MultiplayerUI.startBtn.disabled = true
+		startBtn.disabled = true
 	remove_player_from_list(peer_id)
 
 func remove_player_from_list(peer_id: int):
@@ -117,10 +118,11 @@ func close_and_return_to_main_menu():
 	display_player_list()
 	$MultiplayerUI.switchToMainMenu()
 	open_menu()
+	disconnected_from_server.emit()
 
 func enable_startBtn(_peer_id): 
-	if $MultiplayerUI.startBtn.disabled : 
-		$MultiplayerUI.startBtn.disabled = false
+	if startBtn.disabled : 
+		startBtn.disabled = false
 
 func exitJoinServerMenu():
 	$MultiplayerUI.switchToMainMenu()

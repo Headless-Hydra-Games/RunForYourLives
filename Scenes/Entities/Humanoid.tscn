@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://dcevssemu74ys"]
+
+[ext_resource type="Script" path="res://scripts/Entities/humanoid.gd" id="1_1fmvw"]
+[ext_resource type="PackedScene" uid="uid://dhvurq04jsnpj" path="res://Models/Human.blend" id="2_c3xkq"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8fyme"]
+radius = 0.2
+height = 1.7
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_h4i33"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("Pivot:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[node name="Humanoid" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 2
+script = ExtResource("1_1fmvw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.112338, 0)
+shape = SubResource("CapsuleShape3D_8fyme")
+
+[node name="Pivot" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="Human" parent="Pivot" instance=ExtResource("2_c3xkq")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -1, 0)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_h4i33")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_max_distance = 1.01

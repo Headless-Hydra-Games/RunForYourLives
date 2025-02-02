@@ -57,9 +57,10 @@ func update_stairs(pos: Vector3):
 				stairs_collection.get_children()[stairs_index].set_position(set_pos)
 			stairs_number += 1
 
-# override register_player
-func register_player(player: Player):
-	player.on_move.connect(_on_player_move)
+# override register_enitity
+func register_entity(entity: Entity):
+	if entity is Player:
+		entity.on_move.connect(_on_player_move)
 
 func _on_player_move(pos: Vector3):
 	update_stairs(pos)
