@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://brceokpigpkt"]
 
 [ext_resource type="Script" path="res://scripts/Maps/corridors.gd" id="1_wvvxg"]
-[ext_resource type="PackedScene" uid="uid://dcevssemu74ys" path="res://Scenes/Entities/Humanoid.tscn" id="2_34xr1"]
+[ext_resource type="PackedScene" path="res://Scenes/Entities/Humanoid.tscn" id="2_34xr1"]
 [ext_resource type="Environment" uid="uid://1v64rcf2lewr" path="res://Scenes/Maps/MapAssets/WorldEnvironments/DarkRoomEnvironment.tres" id="2_k7fta"]
 [ext_resource type="PackedScene" uid="uid://b8c2niw261b7w" path="res://Scenes/Maps/MapAssets/GridMap/grid_map.tscn" id="3_pud4n"]
 [ext_resource type="PackedScene" uid="uid://scgjh2e6ohwc" path="res://Scenes/Maps/MapAssets/GridMap/Rooms/EmptyRoom.tscn" id="4_40ngt"]

@@ -1,12 +1,12 @@
 [gd_scene load_steps=4 format=3 uid="uid://csvo6lu3pq6wl"]
 
 [ext_resource type="Script" path="res://scripts/Managers/scene_manager.gd" id="1_0jga4"]
-[ext_resource type="PackedScene" uid="uid://brceokpigpkt" path="res://Scenes/Maps/corridors.tscn" id="2_b3ay0"]
+[ext_resource type="PackedScene" uid="uid://cm715mdow4p42" path="res://Scenes/Maps/Blizzard.tscn" id="2_070ky"]
 [ext_resource type="PackedScene" uid="uid://cey20caxrhw3n" path="res://Scenes/Networking/multiplayer_manager.tscn" id="3_llpux"]
 
 [node name="SceneManager" type="Node"]
 script = ExtResource("1_0jga4")
-level_scene = ExtResource("2_b3ay0")
+level_scene = ExtResource("2_070ky")
 
 [node name="MultiplayerManager" parent="." instance=ExtResource("3_llpux")]
 
